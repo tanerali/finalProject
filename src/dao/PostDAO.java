@@ -33,11 +33,11 @@ public enum PostDAO {
 	private static final String getAllPostsByCountry = "SELECT * FROM POSTS\n" + "JOIN\n"
 			+ "USERS on USERS.country = ?;";
 
-	private static final String getAllPostsByCity = "SELECT * FROM POSTS\n" + "JOIN\n" + "USERS on USERS.city = ?;";
+	private static final String getAllPostsByCity = "SELECT POSTS.title,POSTS.description,POSTS.price,POSTS.date_of_posting,POSTS.type_id FROM POSTS JOIN USERS on USERS.city = ?;";
 
 	private static final String getAllPostTypes = "SELECT ID,type FROM POST_TYPE;";
 
-	private static final String getAllRecentPosts = "SELECT type_id,title,description,price,date_of_posting FROM POSTS ORDER BY date_of_posting DESC;";
+	private static final String getAllRecentPosts = "SELECT POSTS.type_id,POSTS.title,POSTS.description,POSTS.price,POSTS.date_of_posting FROM POSTS ORDER BY date_of_posting DESC;";
 
 	private PostDAO() {
 		connection = DBManager.INSTANCE.getConnection();
@@ -52,6 +52,7 @@ public enum PostDAO {
 					result.getDate("date_of_posting").toLocalDate(), Post.Type.getType(result.getInt("type_id")));
 			posts.add(newPost);
 		}
+		connection.close();
 		return posts;
 	}
 
@@ -69,5 +70,47 @@ public enum PostDAO {
 		statement.setDate(5, Date.valueOf(newPost.getDateOfPosting()));
 		statement.setString(6, newPost.getDescription());
 		statement.executeUpdate();
+	}
+
+	public List<Post> getAllPostsByUserID(int id) throws SQLException, InvalidPostDataExcepetion {
+		List<Post> posts = new ArrayList<>();
+		PreparedStatement st = connection.prepareStatement(getAllPostsByUser);
+		st.setInt(1, id);
+		ResultSet result = st.executeQuery();
+		while (result.next()) {
+			Post newPost = new Post(result.getString("title"), result.getString("description"), result.getInt("price"),
+					result.getDate("date_of_posting").toLocalDate(), Post.Type.getType(result.getInt("type_id")));
+			posts.add(newPost);
+		}
+		connection.close();
+		return posts;
+	}
+
+	public List<Post> getAllPostsByCountry(String country) throws InvalidPostDataExcepetion, SQLException {
+		List<Post> posts = new ArrayList<>();
+		PreparedStatement st = connection.prepareStatement(getAllPostsByCountry);
+		st.setString(1, country);
+		ResultSet result = st.executeQuery();
+		while (result.next()) {
+			Post newPost = new Post(result.getString("title"), result.getString("description"), result.getInt("price"),
+					result.getDate("date_of_posting").toLocalDate(), Post.Type.getType(result.getInt("type_id")));
+			posts.add(newPost);
+		}
+		connection.close();
+		return posts;
+	}
+
+	public List<Post> getAllPostsByCity(String city) throws SQLException, InvalidPostDataExcepetion {
+		List<Post> posts = new ArrayList<>();
+		PreparedStatement st = connection.prepareStatement(getAllPostsByCity);
+		st.setString(1, city);
+		ResultSet result = st.executeQuery();
+		while (result.next()) {
+			Post newPost = new Post(result.getString("title"), result.getString("description"), result.getInt("price"),
+					result.getDate("date_of_posting").toLocalDate(), Post.Type.getType(result.getInt("type_id")));
+			posts.add(newPost);
+		}
+		connection.close();
+		return posts;
 	}
 }
