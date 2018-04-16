@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBManager {
+public enum DBManager {
 
-	private static DBManager instance;
+	INSTANCE;
 
 	private static final String DB_IP = "localhost";
 	private static final String DB_PORT = "3306";
@@ -26,25 +26,15 @@ public class DBManager {
 			return;
 		}
 		System.out.println("Driver loaded");
+		
 		// create connection
 		try {
 			conn = DriverManager.getConnection(URL, DB_USER, DB_PASS);
 
 		} catch (SQLException e) {
-			System.out.println("Sorry, connection failed. Maybe wrong credentials?");
+			System.out.println("Sorry, connection failed. Wrong credentials or url to DB");
 			System.out.println(e.getMessage());
 		}
-	}
-
-	public static DBManager getInstance() {
-		if (DBManager.instance == null) {
-			synchronized (DBManager.class) {
-				if (DBManager.instance == null) {
-					DBManager.instance = new DBManager();
-				}
-			}
-		}
-		return DBManager.instance;
 	}
 
 	public Connection getConnection() {
