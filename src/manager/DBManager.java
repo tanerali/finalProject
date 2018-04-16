@@ -10,7 +10,7 @@ public class DBManager {
 
 	private static final String DB_IP = "localhost";
 	private static final String DB_PORT = "3306";
-	private static final String DB_NAME = "AirbnbDB";
+	private static final String DB_NAME = "airbnb";
 	private static final String DB_USER = "root";
 	private static final String DB_PASS = "";
 	private static final String URL = "jdbc:mysql://" + DB_IP + ":" + DB_PORT + "/" + DB_NAME;

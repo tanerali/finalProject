@@ -1,8 +1,7 @@
 package model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-import exceptions.InvalidPostCapacityException;
 import exceptions.InvalidPostDataExcepetion;
 import exceptions.InvalidPostDateException;
 import exceptions.InvalidPostDescriptionException;
@@ -11,20 +10,34 @@ import exceptions.InvalidPostTitleException;
 import exceptions.InvalidPostTypeException;
 
 public class Post {
-	enum Type {
-		HOTEL, APARTMENT, HOUSE, COTTAGE
+	// In DB IDs (HOTEL-1)(APARTMENT-2)(HOUSE-3)(COTTAGE-4)
+	public enum Type {
+		HOTEL, APARTMENT, HOUSE, COTTAGE;
+		public static Type getType(int DB_ID) {
+			switch (DB_ID) {
+			case 1:
+				return Type.HOTEL;
+			case 2:
+				return Type.APARTMENT;
+			case 3:
+				return Type.HOUSE;
+			case 4:
+				return Type.COTTAGE;
+			default:
+				return null;
+			}
+		}
 	}
 
 	private String title;
 	private String description;
 	private int price;
-	private int capacity;
-	private Date dateOfPosting;
+	private LocalDate dateOfPosting;
 	private Type type;
+	private int hostID;
 
-	public Post(String title, String description, int price, int capacity, Date dateOfPosting, Type type)
+	public Post(String title, String description, int price, LocalDate dateOfPosting, Type type)
 			throws InvalidPostDataExcepetion {
-		this.setCapacity(capacity);
 		this.setDateOfPosting(dateOfPosting);
 		this.setDescription(description);
 		this.setPrice(price);
@@ -66,22 +79,11 @@ public class Post {
 		this.price = price;
 	}
 
-	public int getCapacity() {
-		return capacity;
-	}
-
-	public void setCapacity(int capacity) throws InvalidPostCapacityException {
-		if (capacity <= 0) {
-			throw new InvalidPostCapacityException();
-		}
-		this.capacity = capacity;
-	}
-
-	public Date getDateOfPosting() {
+	public LocalDate getDateOfPosting() {
 		return dateOfPosting;
 	}
 
-	public void setDateOfPosting(Date dateOfPosting) throws InvalidPostDateException {
+	public void setDateOfPosting(LocalDate dateOfPosting) throws InvalidPostDateException {
 		this.dateOfPosting = dateOfPosting;
 	}
 
@@ -91,6 +93,34 @@ public class Post {
 
 	public void setType(Type type) throws InvalidPostTypeException {
 		this.type = type;
+	}
+
+	public int getTypeLikeID() {
+		switch (this.getType()) {
+		case HOTEL:
+			return 1;
+		case APARTMENT:
+			return 2;
+		case HOUSE:
+			return 3;
+		case COTTAGE:
+			return 4;
+		default:
+			return -1;
+		}
+	}
+
+	public void setHostID(int hostID) {
+		this.hostID = hostID;
+	}
+
+	public int getHostID() {
+		return hostID;
+	}
+
+	@Override
+	public String toString() {
+		return this.title + " " + this.description + " " + this.price + " " + this.type + " " + this.dateOfPosting;
 	}
 
 }
