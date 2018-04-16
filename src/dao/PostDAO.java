@@ -8,7 +8,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import exceptions.InvalidPostDataExcepetion;
 import manager.DBManager;
@@ -25,8 +27,7 @@ public enum PostDAO {
 
 	private static final String getAllPosts = "SELECT type_id,title,description,price,date_of_posting FROM POSTS;";
 
-	private static final String getAllPostsByType = "SELECT type_id,title,description,price,date_of_posting FROM POSTS "
-			+ "WHERE type_id=?;";
+	private static final String getAllPostsByType = "SELECT type_id,title,description,price,date_of_posting FROM POSTS WHERE type_id=?;";
 
 	private static final String getAllPostsByUser = "SELECT * FROM POSTS\n" + "JOIN\n" + "USERS on USERS.ID = ?;";
 
@@ -105,6 +106,44 @@ public enum PostDAO {
 		PreparedStatement st = connection.prepareStatement(getAllPostsByCity);
 		st.setString(1, city);
 		ResultSet result = st.executeQuery();
+		while (result.next()) {
+			Post newPost = new Post(result.getString("title"), result.getString("description"), result.getInt("price"),
+					result.getDate("date_of_posting").toLocalDate(), Post.Type.getType(result.getInt("type_id")));
+			posts.add(newPost);
+		}
+		connection.close();
+		return posts;
+	}
+
+	public List<Post> getAllPostsByType(int typeID) throws InvalidPostDataExcepetion, SQLException {
+		List<Post> posts = new ArrayList<>();
+		PreparedStatement st = connection.prepareStatement(getAllPostsByType);
+		st.setInt(1, typeID);
+		ResultSet result = st.executeQuery();
+		while (result.next()) {
+			Post newPost = new Post(result.getString("title"), result.getString("description"), result.getInt("price"),
+					result.getDate("date_of_posting").toLocalDate(), Post.Type.getType(result.getInt("type_id")));
+			posts.add(newPost);
+		}
+		connection.close();
+		return posts;
+	}
+
+	public Map<Integer, String> getAllTypes() throws SQLException {
+		Map<Integer, String> types = new HashMap<>();
+		Statement st = connection.createStatement();
+		ResultSet rs = st.executeQuery(getAllPostTypes);
+		while (rs.next()) {
+			types.put(rs.getInt("ID"), rs.getString("type"));
+		}
+		connection.close();
+		return types;
+	}
+
+	public List<Post> getAllRecentPosts() throws SQLException, InvalidPostDataExcepetion {
+		List<Post> posts = new ArrayList<Post>();
+		Statement st = connection.createStatement();
+		ResultSet result = st.executeQuery(getAllRecentPosts);
 		while (result.next()) {
 			Post newPost = new Post(result.getString("title"), result.getString("description"), result.getInt("price"),
 					result.getDate("date_of_posting").toLocalDate(), Post.Type.getType(result.getInt("type_id")));
