@@ -40,7 +40,7 @@ public enum PostDAO {
 	private static final String getAllRecentPosts = "SELECT type_id,title,description,price,date_of_posting FROM POSTS ORDER BY date_of_posting DESC;";
 
 	private PostDAO() {
-		connection = DBManager.getInstance().getConnection();
+		connection = DBManager.INSTANCE.getConnection();
 	}
 
 	public List<Post> getAllPosts() throws SQLException, InvalidPostDataExcepetion {

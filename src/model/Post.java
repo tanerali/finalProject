@@ -132,6 +132,5 @@ public class Post {
 			System.out.println(p);
 		}
 
-		PostDAO.instance.insertPost("Obshtaka", "Ne stava dea", 1, LocalDate.now(), Type.COTTAGE);
 	}
 }
