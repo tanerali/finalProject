@@ -13,7 +13,6 @@ public class User {
 	private String email;
 	private String user;
 	private String password;
-	private int age;
 	private String gender;
 	private String city;
 	private String country;
@@ -21,6 +20,23 @@ public class User {
 	private String description;
 	private LocalDate birthDate;
 	private String telNumber;
+	
+	
+	public User(String first_name, String last_name, String email, String user, String password, String gender,
+			String city, String country, String photo, String description, LocalDate birthDate, String telNumber) {
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.email = email;
+		this.user = user;
+		this.password = password;
+		this.gender = gender;
+		this.city = city;
+		this.country = country;
+		this.photo = photo;
+		this.description = description;
+		this.birthDate = birthDate;
+		this.telNumber = telNumber;
+	}
 	
 	public String getFirst_name() {
 		return first_name;
@@ -71,14 +87,7 @@ public class User {
 		}
 		this.password = password;
 	}
-	public int getAge() {
-		return age;
-	}
-	public void setAge(int age) {
-		if (age > 0 && age<120) {
-			this.age = age;
-		}
-	}
+	
 	public String getGender() {
 		return gender;
 	}
