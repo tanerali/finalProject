@@ -48,11 +48,7 @@ public enum PostDAO {
 		List<Post> posts = new ArrayList<Post>();
 		Statement st = connection.createStatement();
 		ResultSet result = st.executeQuery(getAllPosts);
-		while (result.next()) {
-			Post newPost = new Post(result.getString("title"), result.getString("description"), result.getInt("price"),
-					result.getDate("date_of_posting").toLocalDate(), Post.Type.getType(result.getInt("type_id")));
-			posts.add(newPost);
-		}
+		posts = this.getResult(result);
 		connection.close();
 		return posts;
 	}
@@ -78,11 +74,7 @@ public enum PostDAO {
 		PreparedStatement st = connection.prepareStatement(getAllPostsByUser);
 		st.setInt(1, id);
 		ResultSet result = st.executeQuery();
-		while (result.next()) {
-			Post newPost = new Post(result.getString("title"), result.getString("description"), result.getInt("price"),
-					result.getDate("date_of_posting").toLocalDate(), Post.Type.getType(result.getInt("type_id")));
-			posts.add(newPost);
-		}
+		posts = this.getResult(result);
 		connection.close();
 		return posts;
 	}
@@ -92,11 +84,7 @@ public enum PostDAO {
 		PreparedStatement st = connection.prepareStatement(getAllPostsByCountry);
 		st.setString(1, country);
 		ResultSet result = st.executeQuery();
-		while (result.next()) {
-			Post newPost = new Post(result.getString("title"), result.getString("description"), result.getInt("price"),
-					result.getDate("date_of_posting").toLocalDate(), Post.Type.getType(result.getInt("type_id")));
-			posts.add(newPost);
-		}
+		posts = this.getResult(result);
 		connection.close();
 		return posts;
 	}
@@ -106,11 +94,7 @@ public enum PostDAO {
 		PreparedStatement st = connection.prepareStatement(getAllPostsByCity);
 		st.setString(1, city);
 		ResultSet result = st.executeQuery();
-		while (result.next()) {
-			Post newPost = new Post(result.getString("title"), result.getString("description"), result.getInt("price"),
-					result.getDate("date_of_posting").toLocalDate(), Post.Type.getType(result.getInt("type_id")));
-			posts.add(newPost);
-		}
+		posts = this.getResult(result);
 		connection.close();
 		return posts;
 	}
@@ -120,11 +104,7 @@ public enum PostDAO {
 		PreparedStatement st = connection.prepareStatement(getAllPostsByType);
 		st.setInt(1, typeID);
 		ResultSet result = st.executeQuery();
-		while (result.next()) {
-			Post newPost = new Post(result.getString("title"), result.getString("description"), result.getInt("price"),
-					result.getDate("date_of_posting").toLocalDate(), Post.Type.getType(result.getInt("type_id")));
-			posts.add(newPost);
-		}
+		posts = this.getResult(result);
 		connection.close();
 		return posts;
 	}
@@ -144,12 +124,18 @@ public enum PostDAO {
 		List<Post> posts = new ArrayList<Post>();
 		Statement st = connection.createStatement();
 		ResultSet result = st.executeQuery(getAllRecentPosts);
+		posts = this.getResult(result);
+		connection.close();
+		return posts;
+	}
+
+	private List<Post> getResult(ResultSet result) throws InvalidPostDataExcepetion, SQLException {
+		List<Post> posts = new ArrayList<Post>();
 		while (result.next()) {
 			Post newPost = new Post(result.getString("title"), result.getString("description"), result.getInt("price"),
 					result.getDate("date_of_posting").toLocalDate(), Post.Type.getType(result.getInt("type_id")));
 			posts.add(newPost);
 		}
-		connection.close();
 		return posts;
 	}
 }

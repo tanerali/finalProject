@@ -1,7 +1,10 @@
 package model;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
+import dao.PostDAO;
 import exceptions.InvalidPostDataExcepetion;
 import exceptions.InvalidPostDateException;
 import exceptions.InvalidPostDescriptionException;
@@ -123,4 +126,11 @@ public class Post {
 		return this.title + " " + this.description + " " + this.price + " " + this.type + " " + this.dateOfPosting;
 	}
 
+	public static void main(String[] args) throws SQLException, InvalidPostDataExcepetion {
+
+		List<Post> ps = PostDAO.instance.getAllPostsByUserID(1);
+		for (Post p : ps) {
+			System.out.println(p);
+		}
+	}
 }
