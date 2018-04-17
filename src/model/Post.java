@@ -2,6 +2,7 @@ package model;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import dao.PostDAO;
@@ -38,6 +39,8 @@ public class Post {
 	private LocalDate dateOfPosting;
 	private Type type;
 	private int hostID;
+	private List<Comment> comments;
+	private int rating; // 0->5
 
 	public Post(String title, String description, int price, LocalDate dateOfPosting, Type type)
 			throws InvalidPostDataExcepetion {
@@ -46,7 +49,8 @@ public class Post {
 		this.setPrice(price);
 		this.setTitle(title);
 		this.setType(type);
-
+		comments = new ArrayList<>();
+		this.rating = 0;
 	}
 
 	public String getTitle() {
