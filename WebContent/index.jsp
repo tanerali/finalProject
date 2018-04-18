@@ -1,5 +1,6 @@
-
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
 <title>Airbnb</title>
@@ -56,62 +57,10 @@
 	<!-- banner -->
 	<div class="banner1">
 
-		<div class="header">
-			<div class="container">
-				<div class="header-left">
-					<div class="w3layouts-logo">
-						<h1>
-							<a href="index.html"><span>re </span> AIRBNB</a>
-						</h1>
-					</div>
-				</div>
-				<div class="header-right">
-					<div class="w3-header-bottom">
-						<div class="top-nav">
-							<nav class="navbar navbar-default">
-								<div class="navbar-header">
-									<button type="button" class="navbar-toggle collapsed"
-										data-toggle="collapse"
-										data-target="#bs-example-navbar-collapse-1">
-										<span class="sr-only">Toggle navigation</span> <span
-											class="icon-bar"></span> <span class="icon-bar"></span> <span
-											class="icon-bar"></span>
-									</button>
-								</div>
-								<!-- Collect the nav links, forms, and other content for toggling -->
-								<div class="collapse navbar-collapse"
-									id="bs-example-navbar-collapse-1">
-									<ul class="nav navbar-nav">
+		<%@ include file="WEB-INF/jsp/header.jsp"%>
 
-										<div id="myOverlay" class="overlay">
-											<span class="closebtn" onclick="closeSearch()"
-												title="Close Overlay">×</span>
-											<div class="overlay-content">
-												<form action="index.html">
-													<input type="text" placeholder="Search.." name="search">
-													<button type="submit">
-														<i class="fa fa-search"></i>
-													</button>
-												</form>
-											</div>
-										</div>
-										<li><a id="openBtn" class="active" onclick="openSearch()">Search</a></li>
-										<li><a href="host.html">Host</a></li>
-										<li><a href="explore.html">Explore</a></li>
-										<li><a href="login.html">Login</a></li>
-										<li><a href="register.html">Register</a></li>
-										<li><a href="profile.jsp">Profile</a></li>
-									</ul>
-									<div class="clearfix"></div>
-								</div>
-							</nav>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-				</div>
-				<div class="clearfix"></div>
-			</div>
-		</div>
+
+
 
 		<div class="w3layouts-banner-slider">
 			<div class="container">
@@ -152,8 +101,10 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
 	<!-- //banner -->
+
 	<!-- welcome -->
 	<!-- //services -->
 	<!-- copyright -->
@@ -162,6 +113,7 @@
 	<script src="js/SmoothScroll.min.js"></script>
 	<script type="text/javascript" src="js/move-top.js"></script>
 	<script type="text/javascript" src="js/easing.js"></script>
+
 	<!-- here stars scrolling icon -->
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -181,6 +133,8 @@
 		});
 	</script>
 
+
+
 	<script>
 		function openSearch() {
 			document.getElementById("myOverlay").style.display = "block";
@@ -191,6 +145,7 @@
 		}
 	</script>
 	<!-- //here ends scrolling icon -->
+
 	<script src="js/jarallax.js"></script>
 	<script type="text/javascript">
 		/* init Jarallax */

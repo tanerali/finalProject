@@ -4,14 +4,14 @@ import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import exceptions.InvalidDataException;
+import exceptions.UserDataException;
 
 public class User {
 
-	private String first_name;
-	private String last_name;
+	private int userID;
+	private String firstName;
+	private String lastName;
 	private String email;
-	private String user;
 	private String password;
 	private String gender;
 	private String city;
@@ -21,13 +21,11 @@ public class User {
 	private LocalDate birthDate;
 	private String telNumber;
 	
-	
-	public User(String first_name, String last_name, String email, String user, String password, String gender,
-			String city, String country, String photo, String description, LocalDate birthDate, String telNumber) {
-		this.first_name = first_name;
-		this.last_name = last_name;
+	public User(String first_name, String last_name, String email, String password, String gender, String city,
+			String country, String photo, String description, LocalDate birthDate, String telNumber) {
+		this.firstName = first_name;
+		this.lastName = last_name;
 		this.email = email;
-		this.user = user;
 		this.password = password;
 		this.gender = gender;
 		this.city = city;
@@ -39,51 +37,43 @@ public class User {
 	}
 	
 	public String getFirst_name() {
-		return first_name;
+		return firstName;
 	}
-	public void setFirst_name(String first_name) throws InvalidDataException {
+	public void setFirst_name(String first_name) throws UserDataException {
 		if (first_name.isEmpty() || !first_name.matches("[a-zA-Z]+")) {
-			throw new InvalidDataException();
+			throw new UserDataException("Error setting first name");
 		}
-		this.first_name = first_name;
+		this.firstName = first_name;
 	}
 	public String getLast_name() {
-		return last_name;
+		return lastName;
 	}
-	public void setLast_name(String last_name) throws InvalidDataException {
+	public void setLast_name(String last_name) throws UserDataException {
 		if (last_name.isEmpty() || !last_name.matches("[a-zA-Z]+")) {
-			throw new InvalidDataException();
+			throw new UserDataException("Error setting last name");
 		}
-		this.last_name = last_name;
+		this.lastName = last_name;
 	}
 	public String getEmail() {
 		return email;
 	}
-	public void setEmail(String email) throws InvalidDataException {
+	public void setEmail(String email) throws UserDataException {
 		String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
 	    
 		if (email.isEmpty() || !email.matches(regex)) {
-			throw new InvalidDataException();
+			throw new UserDataException("Error setting email");
 		}
 		this.email = email;
 	}
-	public String getUser() {
-		return user;
-	}
-	public void setUser(String user) throws InvalidDataException {
-		if (user.isEmpty()) {
-			throw new InvalidDataException();
-		}
-		this.user = user;
-	}
+	
 	public String getPassword() {
 		return password;
 	}
-	public void setPassword(String password) throws InvalidDataException {
+	public void setPassword(String password) throws UserDataException {
 		String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$\n";
 		
 		if (password.isEmpty() || !password.matches(regex)) {
-			throw new InvalidDataException();
+			throw new UserDataException("Error setting password");
 		}
 		this.password = password;
 	}
@@ -91,9 +81,9 @@ public class User {
 	public String getGender() {
 		return gender;
 	}
-	public void setGender(String gender) throws InvalidDataException {
+	public void setGender(String gender) throws UserDataException {
 		if (gender.isEmpty()) {
-			throw new InvalidDataException();
+			throw new UserDataException("Error setting gender");
 		}
 		this.gender = gender;
 	}
@@ -126,18 +116,18 @@ public class User {
 	public LocalDate getBirthDate() {
 		return birthDate;
 	}
-	public void setBirthDate(LocalDate birthDate) throws InvalidDataException {
+	public void setBirthDate(LocalDate birthDate) throws UserDataException {
 		if (birthDate == null) {
-			throw new InvalidDataException();
+			throw new UserDataException("Error setting birth date");
 		}
 		this.birthDate = birthDate;
 	}
 	public String getTelNumber() {
 		return telNumber;
 	}
-	public void setTelNumber(String telNumber) throws InvalidDataException {
+	public void setTelNumber(String telNumber) throws UserDataException {
 		if (telNumber.isEmpty()) {
-			throw new InvalidDataException();
+			throw new UserDataException("Error setting telephone number");
 		}
 		this.telNumber = telNumber;
 	}

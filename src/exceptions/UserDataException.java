@@ -1,10 +1,16 @@
 package exceptions;
 
-public class InvalidDataException extends Exception{
+public class UserDataException extends Exception{
+
+	private String message;
+	
+	public UserDataException(String message) {
+		this.message = message;
+	}
 
 	@Override
 	public String getMessage() {
-		return "Invalid data entered";
+		return message;
 	}
 	
 }
