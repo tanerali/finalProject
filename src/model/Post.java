@@ -33,6 +33,7 @@ public class Post {
 		}
 	}
 
+	private int postID; // not sure if needed!
 	private String title;
 	private String description;
 	private int price;
@@ -53,8 +54,22 @@ public class Post {
 		this.rating = 0;
 	}
 
+	public Post(int postID, String title, String description, int price, LocalDate dateOfPosting, Type type, int hostID)
+			throws InvalidPostDataExcepetion {
+		this(title, description, price, dateOfPosting, type);
+		this.postID = postID;
+	}
+
 	public String getTitle() {
 		return title;
+	}
+
+	public void setPostID(int postID) {
+		this.postID = postID;
+	}
+
+	public int getPostID() {
+		return postID;
 	}
 
 	public void setTitle(String title) throws InvalidPostTitleException {
@@ -132,9 +147,10 @@ public class Post {
 
 	public static void main(String[] args) throws SQLException, InvalidPostDataExcepetion {
 
-		List<Post> ps = PostDAO.instance.getAllPostsByUserID(1);
+		List<Post> ps = PostDAO.instance.getAllPosts();
 		for (Post p : ps) {
 			System.out.println(p);
 		}
+		PostDAO.instance.removePost(31);
 	}
 }
