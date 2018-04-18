@@ -26,20 +26,20 @@ public enum PostDAO {
 			+ "VALUES(?,?,?,?,?,?);";
 	private static final String deletePost = "DELETE FROM POSTS where ID=?;";
 
-	private static final String getAllPosts = "SELECT type_id,title,description,price,date_of_posting FROM POSTS;";
+	private static final String getAllPosts = "SELECT ID,type_id,title,description,host_id,price,date_of_posting FROM POSTS;";
 
-	private static final String getAllPostsByType = "SELECT type_id,title,description,price,date_of_posting FROM POSTS WHERE type_id=?;";
+	private static final String getAllPostsByType = "SELECT ID,type_id,title,description,host_id,price,date_of_posting FROM POSTS WHERE type_id=?;";
 
 	private static final String getAllPostsByUser = "SELECT * FROM POSTS\n" + "JOIN\n" + "USERS on USERS.ID = ?;";
 
 	private static final String getAllPostsByCountry = "SELECT * FROM POSTS\n" + "JOIN\n"
 			+ "USERS on USERS.country = ?;";
 
-	private static final String getAllPostsByCity = "SELECT POSTS.title,POSTS.description,POSTS.price,POSTS.date_of_posting,POSTS.type_id FROM POSTS JOIN USERS on USERS.city = ?;";
+	private static final String getAllPostsByCity = "SELECT POSTS.ID,POSTS.title,POSTS.description,POSTS.host_id,POSTS.price,POSTS.date_of_posting,POSTS.type_id FROM POSTS JOIN USERS on USERS.city = ?;";
 
 	private static final String getAllPostTypes = "SELECT ID,type FROM POST_TYPE;";
 
-	private static final String getAllRecentPosts = "SELECT POSTS.type_id,POSTS.title,POSTS.description,POSTS.price,POSTS.date_of_posting FROM POSTS ORDER BY date_of_posting DESC;";
+	private static final String getAllRecentPosts = "SELECT POSTS.ID,POSTS.type_id,POSTS.title,POSTS.description,POSTS.host_id,POSTS.price,POSTS.date_of_posting FROM POSTS ORDER BY date_of_posting DESC;";
 
 	private PostDAO() {
 		connection = DBManager.INSTANCE.getConnection();
@@ -157,8 +157,9 @@ public enum PostDAO {
 	private List<Post> getResult(ResultSet result) throws InvalidPostDataExcepetion, SQLException {
 		List<Post> posts = new ArrayList<Post>();
 		while (result.next()) {
-			Post newPost = new Post(result.getString("title"), result.getString("description"), result.getInt("price"),
-					result.getDate("date_of_posting").toLocalDate(), Post.Type.getType(result.getInt("type_id")));
+			Post newPost = new Post(result.getInt("ID"), result.getString("title"), result.getString("description"),
+					result.getInt("price"), result.getDate("date_of_posting").toLocalDate(),
+					Post.Type.getType(result.getInt("type_id")), result.getInt("host_id"));
 			posts.add(newPost);
 		}
 		return posts;

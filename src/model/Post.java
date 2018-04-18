@@ -5,13 +5,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.PostDAO;
 import exceptions.InvalidPostDataExcepetion;
 import exceptions.InvalidPostDateException;
 import exceptions.InvalidPostDescriptionException;
 import exceptions.InvalidPostPriceException;
 import exceptions.InvalidPostTitleException;
 import exceptions.InvalidPostTypeException;
+import manager.PostManager;
 
 public class Post {
 	// In DB IDs (HOTEL-1)(APARTMENT-2)(HOUSE-3)(COTTAGE-4)
@@ -140,6 +140,14 @@ public class Post {
 		return hostID;
 	}
 
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void addComment(Comment m) {
+		this.comments.add(m);
+	}
+
 	@Override
 	public String toString() {
 		return this.title + " " + this.description + " " + this.price + " " + this.type + " " + this.dateOfPosting;
@@ -147,10 +155,9 @@ public class Post {
 
 	public static void main(String[] args) throws SQLException, InvalidPostDataExcepetion {
 
-		List<Post> ps = PostDAO.instance.getAllPosts();
+		List<Post> ps = PostManager.instance.searchPostByCity("Sofi");
 		for (Post p : ps) {
 			System.out.println(p);
 		}
-		PostDAO.instance.removePost(31);
 	}
 }
