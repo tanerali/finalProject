@@ -56,7 +56,7 @@
 
 <body>
 
-	<%@ include file="header.html" %>
+	<%@ include file="header.jsp" %>
 	<h1>User details</h1>
 	<ul>
 		<li><%= ((User)session.getAttribute("user")).getCity() %></li>
@@ -66,7 +66,6 @@
 		<li><%= ((User)session.getAttribute("user")).getFirst_name() %></li>
 		<li><%= ((User)session.getAttribute("user")).getGender() %></li>
 		<li><%= ((User)session.getAttribute("user")).getLast_name() %></li>
-		<li><%= ((User)session.getAttribute("user")).getUser() %></li>
 		<li><%= ((User)session.getAttribute("user")).getBirthDate() %></li>
 	</ul>
 </body>

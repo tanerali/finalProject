@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-import exceptions.InvalidDataException;
+import exceptions.UserDataException;
 import manager.DBManager;
 import model.User;
 
@@ -18,9 +18,9 @@ public enum UserDAO {
 		connection = DBManager.INSTANCE.getConnection();
 	}
 
-	public User getUserByEmail(String email, String password) throws SQLException, InvalidDataException {
+	public User getUserByEmail(String email, String password) throws SQLException, UserDataException {
 		String sqlQuery = "SELECT "
-				+ "first_name, last_name, email, user, password, gender, city, "
+				+ "first_name, last_name, email, password, gender, city, "
 				+ "country, photo, description, birth_date, telephone_number "
 				+ "FROM USERS "
 				+ "WHERE email = ?";
@@ -31,25 +31,47 @@ public enum UserDAO {
 			resultSet.next();
 			
 			User user = null;
-			if (!resultSet.getString(3).isEmpty() && resultSet.getString(5).equals(password)) {
+			if (!resultSet.getString("email").isEmpty() && 
+					resultSet.getString("password").equals(password)) {
 				
-				user = new User(resultSet.getString(1),
-						resultSet.getString(2),
-						resultSet.getString(3),
-						resultSet.getString(4),
-						resultSet.getString(5),
-						resultSet.getString(6),
-						resultSet.getString(7),
-						resultSet.getString(8),
-						resultSet.getString(9),
-						resultSet.getString(10),
-						LocalDate.parse(resultSet.getString(11)),
-						resultSet.getString(12));
-				
-
+				user = new User(
+						resultSet.getString("first_name"),
+						resultSet.getString("last_name"),
+						resultSet.getString("email"),
+						resultSet.getString("password"),
+						resultSet.getString("gender"),
+						resultSet.getString("city"),
+						resultSet.getString("country"),
+						resultSet.getString("photo"),
+						resultSet.getString("description"),
+						LocalDate.parse(resultSet.getString("birth_date")),
+						resultSet.getString("telephone_number"));
 			}
 			return user;
 		}
+	}
+
+	public boolean addUser(User user) throws SQLException {
+		String sql = "INSERT INTO USERS "
+				+ "(first_name, last_name, email, password, gender, city, "
+				+ "country, photo, description, birth_date, telephone_number) " + 
+				"VALUES (?,?,?,?,?,?,?,?,?,?,?);";
+		
+		try (PreparedStatement ps = connection.prepareStatement(sql)) {
+			ps.setString(1, user.getFirst_name());
+			ps.setString(2, user.getLast_name());
+			ps.setString(3, user.getEmail());
+			ps.setString(4, user.getPassword());
+			ps.setString(5, user.getGender());
+			ps.setString(6, user.getCity());
+			ps.setString(7, user.getCountry());
+			ps.setString(8, user.getPhoto());
+			ps.setString(9, user.getDescription());
+			ps.setObject(10, user.getBirthDate());
+			ps.setString(11, user.getTelNumber());
+			return ps.executeUpdate() > 0 ? true : false;
+		}
+		
 	}
 	
 	

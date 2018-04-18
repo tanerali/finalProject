@@ -1,5 +1,6 @@
-
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
 <title>Airbnb</title>
@@ -92,6 +93,7 @@
 	<!-- banner -->
 	<div class="banner1">
 
+<<<<<<< HEAD:WebContent/index.html
 		<div class="header">
 			<div class="container">
 				<div class="header-left">
@@ -147,6 +149,12 @@
 				<div class="clearfix"></div>
 			</div>
 		</div>
+=======
+		<%@ include file="WEB-INF/jsp/header.jsp"%>
+
+
+
+>>>>>>> 61f919948f01e528aaa7e4904b00e305fb681845:WebContent/index.jsp
 
 		<div class="w3layouts-banner-slider">
 			<div class="container">
@@ -159,11 +167,46 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
+<<<<<<< HEAD:WebContent/index.html
+=======
+	<!-- //banner -->
+
+	<!-- welcome -->
+	<!-- //services -->
+	<!-- copyright -->
+	<!-- //copyright -->
+>>>>>>> 61f919948f01e528aaa7e4904b00e305fb681845:WebContent/index.jsp
 	<script src="js/responsiveslides.min.js"></script>
 	<script src="js/SmoothScroll.min.js"></script>
 	<script type="text/javascript" src="js/move-top.js"></script>
 	<script type="text/javascript" src="js/easing.js"></script>
+<<<<<<< HEAD:WebContent/index.html
+=======
+
+	<!-- here stars scrolling icon -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear'
+				};
+			 */
+
+			$().UItoTop({
+				easingType : 'easeOutQuart'
+			});
+
+		});
+	</script>
+
+
+
+>>>>>>> 61f919948f01e528aaa7e4904b00e305fb681845:WebContent/index.jsp
 	<script>
 		var req = new XMLHttpRequest();
 		function openSearch() {
@@ -173,6 +216,7 @@
 		function closeSearch() {
 			document.getElementById("myOverlay").style.display = "none";
 		}
+<<<<<<< HEAD:WebContent/index.html
 		function search() {
 			//true means - async requests
 			req.open("Get", "search?search="
@@ -199,6 +243,19 @@
 			}
 
 		}
+=======
+	</script>
+	<!-- //here ends scrolling icon -->
+
+	<script src="js/jarallax.js"></script>
+	<script type="text/javascript">
+		/* init Jarallax */
+		$('.jarallax').jarallax({
+			speed : 0.5,
+			imgWidth : 1366,
+			imgHeight : 768
+		})
+>>>>>>> 61f919948f01e528aaa7e4904b00e305fb681845:WebContent/index.jsp
 	</script>
 </body>
 </html>
