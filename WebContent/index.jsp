@@ -7,45 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
 <script type="application/x-javascript">
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		
-	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
-
 <!-- bootstrap-css -->
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css"
 	media="all" />
@@ -83,17 +45,9 @@
 		});
 	});
 </script>
-<!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-<![endif]-->
-</head>
-
-
 <body>
 	<!-- banner -->
 	<div class="banner1">
-
-<<<<<<< HEAD:WebContent/index.html
 		<div class="header">
 			<div class="container">
 				<div class="header-left">
@@ -149,13 +103,6 @@
 				<div class="clearfix"></div>
 			</div>
 		</div>
-=======
-		<%@ include file="WEB-INF/jsp/header.jsp"%>
-
-
-
->>>>>>> 61f919948f01e528aaa7e4904b00e305fb681845:WebContent/index.jsp
-
 		<div class="w3layouts-banner-slider">
 			<div class="container">
 				<div class="slider">
@@ -169,21 +116,16 @@
 		</div>
 
 	</div>
-<<<<<<< HEAD:WebContent/index.html
-=======
 	<!-- //banner -->
 
 	<!-- welcome -->
 	<!-- //services -->
 	<!-- copyright -->
 	<!-- //copyright -->
->>>>>>> 61f919948f01e528aaa7e4904b00e305fb681845:WebContent/index.jsp
 	<script src="js/responsiveslides.min.js"></script>
 	<script src="js/SmoothScroll.min.js"></script>
 	<script type="text/javascript" src="js/move-top.js"></script>
 	<script type="text/javascript" src="js/easing.js"></script>
-<<<<<<< HEAD:WebContent/index.html
-=======
 
 	<!-- here stars scrolling icon -->
 	<script type="text/javascript">
@@ -206,7 +148,6 @@
 
 
 
->>>>>>> 61f919948f01e528aaa7e4904b00e305fb681845:WebContent/index.jsp
 	<script>
 		var req = new XMLHttpRequest();
 		function openSearch() {
@@ -216,7 +157,6 @@
 		function closeSearch() {
 			document.getElementById("myOverlay").style.display = "none";
 		}
-<<<<<<< HEAD:WebContent/index.html
 		function search() {
 			//true means - async requests
 			req.open("Get", "search?search="
@@ -243,7 +183,6 @@
 			}
 
 		}
-=======
 	</script>
 	<!-- //here ends scrolling icon -->
 
@@ -255,7 +194,6 @@
 			imgWidth : 1366,
 			imgHeight : 768
 		})
->>>>>>> 61f919948f01e528aaa7e4904b00e305fb681845:WebContent/index.jsp
 	</script>
 </body>
 </html>
