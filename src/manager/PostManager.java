@@ -2,9 +2,9 @@ package manager;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 import dao.PostDAO;
@@ -33,6 +33,10 @@ public enum PostManager {
 				postsByUsers.get(p.getHostID()).add(p);
 				postsByID.put(p.getPostID(), p);
 			}
+
+			for (Entry<Integer, Post> e : postsByID.entrySet()) {
+				System.out.println(e.getKey() + " " + e.getValue());
+			}
 			// Now lets load all comments for posts
 			// for (Comment c : CommentDAO.instance.getAllComments()) {
 			// postsByID.get(c.getPostID()).addComment(c);
@@ -49,14 +53,14 @@ public enum PostManager {
 				posts.add(postsByID.get(id));
 			}
 		}
-		return Collections.unmodifiableList(posts);
+		return posts;
 	}
 
 	public List<Post> searchPostByCity(String city) throws SQLException, InvalidPostDataExcepetion {
-		return Collections.unmodifiableList(PostDAO.instance.getAllPostsByCity(city));
+		return PostDAO.instance.getAllPostsByCity(city);
 	}
 
 	public List<Post> searchPostByCountry(String country) throws SQLException, InvalidPostDataExcepetion {
-		return Collections.unmodifiableList(PostDAO.instance.getAllPostsByCountry(country));
+		return PostDAO.instance.getAllPostsByCountry(country);
 	}
 }

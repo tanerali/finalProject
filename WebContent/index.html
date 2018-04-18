@@ -5,8 +5,44 @@
 <title>Airbnb</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
-<script type="application/x-javascript">	
+<script type="application/x-javascript">
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
 	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>
 
 <!-- bootstrap-css -->
@@ -87,17 +123,16 @@
 											<span class="closebtn" onclick="closeSearch()"
 												title="Close Overlay">×</span>
 											<div class="overlay-content">
-												<form action="index.html">
-													<input type="text" placeholder="Search.." name="search">
-													<button type="submit">
-														<i class="fa fa-search"></i>
-													</button>
-												</form>
+												<input type="text" id="search" name="search">
+												<button type="button" onclick="search();">Search</button>
 											</div>
 										</div>
-										<li><a id="openBtn" class="active" onclick="openSearch()">Search</a></li>
+										<li><a id="openBtn" class="active"
+											onclick="openSearch();">Search</a></li>
+
 										<li><a href="host.html">Host</a></li>
-										<li><a href="explore.html">Explore</a></li>
+										<li><a href="explore.html" onclick="explore(this);"
+											rel="explore.html">Explore</a></li>
 										<li><a href="login.html">Login</a></li>
 										<li><a href="register.html">Register</a></li>
 										<li><a href="profile.jsp">Profile</a></li>
@@ -118,70 +153,19 @@
 				<div class="slider">
 					<div class="callbacks_container">
 						<ul class="rslides callbacks callbacks1" id="slider4">
-
+							<table id="search-table"></table>
 						</ul>
 					</div>
-					<script src="js/responsiveslides.min.js"></script>
-					<script>
-						// You can also use "$(window).load(function() {"
-						$(function() {
-							// Slideshow 4
-							$("#slider4")
-									.responsiveSlides(
-											{
-												auto : true,
-												pager : true,
-												nav : true,
-												speed : 500,
-												namespace : "callbacks",
-												before : function() {
-													$('.events')
-															.append(
-																	"<li>before event fired.</li>");
-												},
-												after : function() {
-													$('.events')
-															.append(
-																	"<li>after event fired.</li>");
-												}
-											});
-
-						});
-					</script>
-					<!--banner Slider starts Here-->
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- //banner -->
-	<!-- welcome -->
-	<!-- //services -->
-	<!-- copyright -->
-	<!-- //copyright -->
 	<script src="js/responsiveslides.min.js"></script>
 	<script src="js/SmoothScroll.min.js"></script>
 	<script type="text/javascript" src="js/move-top.js"></script>
 	<script type="text/javascript" src="js/easing.js"></script>
-	<!-- here stars scrolling icon -->
-	<script type="text/javascript">
-		$(document).ready(function() {
-			/*
-				var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear'
-				};
-			 */
-
-			$().UItoTop({
-				easingType : 'easeOutQuart'
-			});
-
-		});
-	</script>
-
 	<script>
+		var req = new XMLHttpRequest();
 		function openSearch() {
 			document.getElementById("myOverlay").style.display = "block";
 		}
@@ -189,16 +173,32 @@
 		function closeSearch() {
 			document.getElementById("myOverlay").style.display = "none";
 		}
-	</script>
-	<!-- //here ends scrolling icon -->
-	<script src="js/jarallax.js"></script>
-	<script type="text/javascript">
-		/* init Jarallax */
-		$('.jarallax').jarallax({
-			speed : 0.5,
-			imgWidth : 1366,
-			imgHeight : 768
-		})
+		function search() {
+			//true means - async requests
+			req.open("Get", "search?search="
+					+ document.getElementById("search").value, true);
+			req.onreadystatechange = proccesSearch;
+			req.send(null);
+		}
+		function proccesSearch() {
+			if (req.readyState == 4 && req.status == 200) {
+				closeSearch();
+				var jsonSearch = eval('(' + req.responseText + ')');
+				var table = document.getElementById("search-table");
+				table.innerHTML = "";
+				var headRow = table.insertRow(0);
+				var headCell = headRow.insertCell(0);
+				var results = jsonSearch;
+				var i = 0;
+				while (i < results.length) {
+					row = table.insertRow(i + 1);
+					cell = row.insertCell(0);
+					cell.innerHTML = results[i++].title;
+				}
+
+			}
+
+		}
 	</script>
 </body>
 </html>
