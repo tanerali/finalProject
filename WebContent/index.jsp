@@ -7,6 +7,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
 <script type="application/x-javascript">
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
 </script>
 <!-- bootstrap-css -->
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css"
@@ -35,25 +55,15 @@
 
 <script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/bootstrap.js"></script>
-<script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$(".scroll").click(function(event) {
-			event.preventDefault();
-			$('html,body').animate({
-				scrollTop : $(this.hash).offset().top
-			}, 1000);
-		});
-	});
-</script>
 <body>
 	<!-- banner -->
-	<div class="banner1">
+	<div id="top" class="banner1">
 		<div class="header">
 			<div class="container">
 				<div class="header-left">
 					<div class="w3layouts-logo">
 						<h1>
-							<a href="index.html"><span>re </span> AIRBNB</a>
+							<a href="index.jsp"><span>re </span> AIRBNB</a>
 						</h1>
 					</div>
 				</div>
@@ -61,40 +71,39 @@
 					<div class="w3-header-bottom">
 						<div class="top-nav">
 							<nav class="navbar navbar-default">
-								<div class="navbar-header">
-									<button type="button" class="navbar-toggle collapsed"
-										data-toggle="collapse"
-										data-target="#bs-example-navbar-collapse-1">
-										<span class="sr-only">Toggle navigation</span> <span
-											class="icon-bar"></span> <span class="icon-bar"></span> <span
-											class="icon-bar"></span>
-									</button>
-								</div>
-								<!-- Collect the nav links, forms, and other content for toggling -->
-								<div class="collapse navbar-collapse"
-									id="bs-example-navbar-collapse-1">
-									<ul class="nav navbar-nav">
+							<div class="navbar-header">
+								<button type="button" class="navbar-toggle collapsed"
+									data-toggle="collapse"
+									data-target="#bs-example-navbar-collapse-1">
+									<span class="sr-only">Toggle navigation</span> <span
+										class="icon-bar"></span> <span class="icon-bar"></span> <span
+										class="icon-bar"></span>
+								</button>
+							</div>
+							<!-- Collect the nav links, forms, and other content for toggling -->
+							<div class="collapse navbar-collapse"
+								id="bs-example-navbar-collapse-1">
+								<ul class="nav navbar-nav">
 
-										<div id="myOverlay" class="overlay">
-											<span class="closebtn" onclick="closeSearch()"
-												title="Close Overlay">×</span>
-											<div class="overlay-content">
-												<input type="text" id="search" name="search">
-												<button type="button" onclick="search();">Search</button>
-											</div>
+									<div id="myOverlay" class="overlay">
+										<span class="closebtn" onclick="closeSearch()"
+											title="Close Overlay">×</span>
+										<div class="overlay-content">
+											<input type="text" id="search" name="search">
+											<button type="button" onclick="search();">Search</button>
 										</div>
-										<li><a id="openBtn" class="active"
-											onclick="openSearch();">Search</a></li>
+									</div>
+									<li><a id="openBtn" class="active" onclick="openSearch();">Search</a></li>
 
-										<li><a href="host.html">Host</a></li>
-										<li><a href="explore.html" onclick="explore(this);"
-											rel="explore.html">Explore</a></li>
-										<li><a href="login.html">Login</a></li>
-										<li><a href="register.html">Register</a></li>
-										<li><a href="profile.jsp">Profile</a></li>
-									</ul>
-									<div class="clearfix"></div>
-								</div>
+									<li><a href="host.html">Host</a></li>
+									<li><a href="explore.html" onclick="explore(this);"
+										rel="explore.html">Explore</a></li>
+									<li><a href="login.html">Login</a></li>
+									<li><a href="register.html">Register</a></li>
+									<li><a href="profile.jsp">Profile</a></li>
+								</ul>
+								<div class="clearfix"></div>
+							</div>
 							</nav>
 						</div>
 						<div class="clearfix"></div>
@@ -116,12 +125,6 @@
 		</div>
 
 	</div>
-	<!-- //banner -->
-
-	<!-- welcome -->
-	<!-- //services -->
-	<!-- copyright -->
-	<!-- //copyright -->
 	<script src="js/responsiveslides.min.js"></script>
 	<script src="js/SmoothScroll.min.js"></script>
 	<script type="text/javascript" src="js/move-top.js"></script>
@@ -145,9 +148,6 @@
 
 		});
 	</script>
-
-
-
 	<script>
 		var req = new XMLHttpRequest();
 		function openSearch() {
@@ -165,9 +165,11 @@
 			req.send(null);
 		}
 		function proccesSearch() {
-			if (req.readyState == 4 && req.status == 200) {
+			if (req.readyState == 4 && req.status == 200
+					&& req.responseText != "[]") {
 				closeSearch();
 				var jsonSearch = eval('(' + req.responseText + ')');
+				document.getElementById("top").className = "n";
 				var table = document.getElementById("search-table");
 				table.innerHTML = "";
 				var headRow = table.insertRow(0);
@@ -179,21 +181,10 @@
 					cell = row.insertCell(0);
 					cell.innerHTML = results[i++].title;
 				}
-
 			}
 
 		}
 	</script>
-	<!-- //here ends scrolling icon -->
 
-	<script src="js/jarallax.js"></script>
-	<script type="text/javascript">
-		/* init Jarallax */
-		$('.jarallax').jarallax({
-			speed : 0.5,
-			imgWidth : 1366,
-			imgHeight : 768
-		})
-	</script>
 </body>
 </html>
