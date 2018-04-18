@@ -1,6 +1,9 @@
 package model;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import exceptions.InvalidPostDataExcepetion;
 import exceptions.InvalidPostDateException;
@@ -8,6 +11,7 @@ import exceptions.InvalidPostDescriptionException;
 import exceptions.InvalidPostPriceException;
 import exceptions.InvalidPostTitleException;
 import exceptions.InvalidPostTypeException;
+import manager.PostManager;
 
 public class Post {
 	// In DB IDs (HOTEL-1)(APARTMENT-2)(HOUSE-3)(COTTAGE-4)
@@ -29,12 +33,15 @@ public class Post {
 		}
 	}
 
+	private int postID; // not sure if needed!
 	private String title;
 	private String description;
 	private int price;
 	private LocalDate dateOfPosting;
 	private Type type;
 	private int hostID;
+	private List<Comment> comments;
+	private int rating; // 0->5
 
 	public Post(String title, String description, int price, LocalDate dateOfPosting, Type type)
 			throws InvalidPostDataExcepetion {
@@ -43,11 +50,26 @@ public class Post {
 		this.setPrice(price);
 		this.setTitle(title);
 		this.setType(type);
+		comments = new ArrayList<>();
+		this.rating = 0;
+	}
 
+	public Post(int postID, String title, String description, int price, LocalDate dateOfPosting, Type type, int hostID)
+			throws InvalidPostDataExcepetion {
+		this(title, description, price, dateOfPosting, type);
+		this.postID = postID;
 	}
 
 	public String getTitle() {
 		return title;
+	}
+
+	public void setPostID(int postID) {
+		this.postID = postID;
+	}
+
+	public int getPostID() {
+		return postID;
 	}
 
 	public void setTitle(String title) throws InvalidPostTitleException {
@@ -118,9 +140,24 @@ public class Post {
 		return hostID;
 	}
 
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void addComment(Comment m) {
+		this.comments.add(m);
+	}
+
 	@Override
 	public String toString() {
 		return this.title + " " + this.description + " " + this.price + " " + this.type + " " + this.dateOfPosting;
 	}
 
+	public static void main(String[] args) throws SQLException, InvalidPostDataExcepetion {
+
+		List<Post> ps = PostManager.instance.searchPostByCity("Sofi");
+		for (Post p : ps) {
+			System.out.println(p);
+		}
+	}
 }
