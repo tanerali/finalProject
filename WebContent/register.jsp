@@ -64,25 +64,41 @@
 	<%@ include file="WEB-INF/jsp/header.jsp" %>
 
     <div class="container">
-      <form class="form-signin" action="register"  method="post">
+      <form class="form-signin" action="register"  method="post" enctype = "multipart/form-data">
         <h2 class="form-signin-heading">Please sign up</h2>
         
-        First Name<input type="text" class="form-control" required name="firstName">
-		Last Name<input type="text" class="form-control" required name="lastName">
-		Email<input type="email" class="form-control" required name="email">
-		Password<input type="password" class="form-control" required name="pass1">
-		Confirm Password<input type="password" class="form-control" required name="pass2">
-		Gender<input type="text" class="form-control" required name="gender">
+        <% 
+        Exception e =  (Exception)request.getAttribute("exception");
+        if(e != null) { %>
+        	<h4 class="form-signin-heading" style="color: red"><%= e.getMessage() %></h4>
+        <% } %>
+        
+        First Name<input type="text" class="form-control" name="firstName" >
+		Last Name<input type="text" class="form-control" name="lastName" >
+		
+		Email<input type="email" class="form-control" name="email" required>
+		
+		Password<input type="password" class="form-control" name="pass1" >
+		Confirm Password<input type="password" class="form-control" name="pass2" >
+		
+		Gender<select class="form-control" name="gender" required>
+			<option>Male</option>
+			<option>Female</option>
+		</select>
+		
+		Country<input type="text" class="form-control" name="country">
 		City<input type="text" class="form-control" name="city">
-		Country<input type="text" class="form-control" name="city">
-		Photo<input type="file" class="form-control" name="photo">
+		
+		<!-- Photo<input type="file" class="form-control" name="photo"> -->
+		Photo<input type = "file" class="form-control" name = "photo" size = "50" />
+		
 		Description<input type="text" class="form-control" name="description">
-		Birth date<input type="date" class="form-control" required name="birthDate">
+		Birth date<input type="date" class="form-control" name="birthDate" value="1990-01-01">
 		Telephone Number<input type="tel" class="form-control" name="telNumber">
-        
-        
+        <br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
       </form>
+      
 
     </div> <!-- /container -->
 

@@ -53,7 +53,7 @@
 				<div class="header-left">
 					<div class="w3layouts-logo">
 						<h1>
-							<a href="index.html"><span>re </span> AIRBNB</a>
+							<a href="index.jsp"><span>re </span> AIRBNB</a>
 						</h1>
 					</div>
 				</div>
@@ -89,9 +89,20 @@
 										<li><a href="host.html">Host</a></li>
 										<li><a href="explore.html" onclick="explore(this);"
 											rel="explore.html">Explore</a></li>
-										<li><a href="login.html">Login</a></li>
-										<li><a href="register.html">Register</a></li>
-										<li><a href="profile.jsp">Profile</a></li>
+										<%
+											if (session.getAttribute("user") == null) {
+										%>
+										<li><a href="login.jsp">Login</a></li>
+										<li><a href="register.jsp">Register</a></li>
+										<%
+											} else {
+										%>
+										<li><a href="profile">Profile</a></li>
+										<li><a href="logout">Logout</a></li>
+										<%
+											}
+										%>
+										
 									</ul>
 									<div class="clearfix"></div>
 								</div>

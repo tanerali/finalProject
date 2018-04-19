@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import exceptions.UserDataException;
 import manager.DBManager;
 import model.User;
@@ -13,6 +15,7 @@ import model.User;
 public enum UserDAO {
 	INSTANCE;
 	private Connection connection;
+	private BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
 	
 	private UserDAO() {
 		connection = DBManager.INSTANCE.getConnection();
@@ -31,9 +34,11 @@ public enum UserDAO {
 			resultSet.next();
 			
 			User user = null;
-			if (!resultSet.getString("email").isEmpty() && 
-					resultSet.getString("password").equals(password)) {
-				
+			//if the user exists
+			if (!resultSet.getString("email").isEmpty() &&
+					//and his password corresponds to the encoded password in the DB
+					bcrypt.matches(password, resultSet.getString("password"))) {
+
 				user = new User(
 						resultSet.getString("first_name"),
 						resultSet.getString("last_name"),
@@ -61,7 +66,7 @@ public enum UserDAO {
 			ps.setString(1, user.getFirst_name());
 			ps.setString(2, user.getLast_name());
 			ps.setString(3, user.getEmail());
-			ps.setString(4, user.getPassword());
+			ps.setString(4, bcrypt.encode(user.getPassword()));
 			ps.setString(5, user.getGender());
 			ps.setString(6, user.getCity());
 			ps.setString(7, user.getCountry());

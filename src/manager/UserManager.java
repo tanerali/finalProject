@@ -10,10 +10,7 @@ public class UserManager {
 	private UserDAO userDAO = UserDAO.INSTANCE;
 	
 	public User login(String email, String password) throws SQLException, UserDataException {
-		User user = null;
-		user = userDAO.getUserByEmail(email, password);
-		
-		return user;
+		return userDAO.getUserByEmail(email, password);
 	}
 
 	public boolean register(User user) throws SQLException {

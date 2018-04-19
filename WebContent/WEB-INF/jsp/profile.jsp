@@ -58,15 +58,17 @@
 
 	<%@ include file="header.jsp" %>
 	<h1>User details</h1>
+	<img class="img-responsive" alt="" src="getPic">
 	<ul>
-		<li><%= ((User)session.getAttribute("user")).getCity() %></li>
-		<li><%= ((User)session.getAttribute("user")).getCountry() %></li>
-		<li><%= ((User)session.getAttribute("user")).getDescription() %></li>
-		<li><%= ((User)session.getAttribute("user")).getEmail() %></li>
 		<li><%= ((User)session.getAttribute("user")).getFirst_name() %></li>
-		<li><%= ((User)session.getAttribute("user")).getGender() %></li>
 		<li><%= ((User)session.getAttribute("user")).getLast_name() %></li>
+		<li><%= ((User)session.getAttribute("user")).getEmail() %></li>
+		<li><%= ((User)session.getAttribute("user")).getGender() %></li>
+		<li><%= ((User)session.getAttribute("user")).getCountry() %></li>
+		<li><%= ((User)session.getAttribute("user")).getCity() %></li>
+		<li><%= ((User)session.getAttribute("user")).getDescription() %></li>
 		<li><%= ((User)session.getAttribute("user")).getBirthDate() %></li>
+		<li><%= ((User)session.getAttribute("user")).getTelNumber() %></li>
 	</ul>
 </body>
 </html>

@@ -31,7 +31,7 @@
 
 							<div id="myOverlay" class="overlay">
 								<span class="closebtn" onclick="closeSearch()"
-									title="Close Overlay">Ã</span>
+									title="Close Overlay">X</span>
 								<div class="overlay-content">
 									<form action="index.html">
 										<input type="text" placeholder="Search.." name="search">

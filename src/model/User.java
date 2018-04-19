@@ -1,8 +1,6 @@
 package model;
 
 import java.time.LocalDate;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import exceptions.UserDataException;
 
@@ -21,19 +19,29 @@ public class User {
 	private LocalDate birthDate;
 	private String telNumber;
 	
-	public User(String first_name, String last_name, String email, String password, String gender, String city,
-			String country, String photo, String description, LocalDate birthDate, String telNumber) {
-		this.firstName = first_name;
-		this.lastName = last_name;
-		this.email = email;
-		this.password = password;
-		this.gender = gender;
-		this.city = city;
-		this.country = country;
-		this.photo = photo;
-		this.description = description;
-		this.birthDate = birthDate;
-		this.telNumber = telNumber;
+	public User(String first_name, 
+				String last_name, 
+				String email, 
+				String password, 
+				String gender, 
+				String city,
+				String country, 
+				String photo, 
+				String description, 
+				LocalDate birthDate, 
+				String telNumber) throws UserDataException {
+		
+		setFirst_name(first_name);
+		setLast_name(last_name);
+		setEmail(email);
+		setPassword(password);
+		setGender(gender);
+		setCity(city);
+		setCountry(country);
+		setPhoto(photo);
+		setDescription(description);
+		setBirthDate(birthDate);
+		setTelNumber(telNumber);
 	}
 	
 	public String getFirst_name() {
@@ -45,6 +53,7 @@ public class User {
 		}
 		this.firstName = first_name;
 	}
+	
 	public String getLast_name() {
 		return lastName;
 	}
@@ -54,11 +63,23 @@ public class User {
 		}
 		this.lastName = last_name;
 	}
+	
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) throws UserDataException {
-		String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+		/*
+		 * ‘@’ symbol required
+		 * in username and domain name
+			 A-Z characters allowed
+			 a-z characters allowed
+			 0-9 numbers allowed
+			 Additionally email may contain only dot(.), dash(-) and underscore(_)
+			 Rest all characters are not allowed
+		 * domain name must include at least one dot
+		 * top-level domain to include only between 2-6 chars
+		 */
+		String regex = "^[A-Za-z0-9+._-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
 	    
 		if (email.isEmpty() || !email.matches(regex)) {
 			throw new UserDataException("Error setting email");
@@ -70,7 +91,17 @@ public class User {
 		return password;
 	}
 	public void setPassword(String password) throws UserDataException {
-		String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$\n";
+		/*
+		^                 # start-of-string
+		(?=.*[0-9])       # a digit must occur at least once
+		(?=.*[a-z])       # a lower case letter must occur at least once
+		(?=.*[A-Z])       # an upper case letter must occur at least once
+		(?=.*[@#$%^&+=])  # a special character must occur at least once
+		(?=\S+$)          # no whitespace allowed in the entire string
+		.{8,}             # anything, at least eight places though
+		$                 # end-of-string
+		 */
+		String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";						
 		
 		if (password.isEmpty() || !password.matches(regex)) {
 			throw new UserDataException("Error setting password");
@@ -87,41 +118,49 @@ public class User {
 		}
 		this.gender = gender;
 	}
+	
 	public String getCity() {
 		return city;
 	}
-	//drop down menu for the given country
+	//TODO drop down menu for the given country
 	public void setCity(String city) {
 		this.city = city;
 	}
+	
 	public String getCountry() {
 		return country;
 	}
-	//drop down menu
+	//TODO drop down menu
 	public void setCountry(String country) {
 		this.country = country;
 	}
+	
 	public String getPhoto() {
 		return photo;
 	}
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
+	
 	public String getDescription() {
 		return description;
 	}
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 	public LocalDate getBirthDate() {
 		return birthDate;
 	}
+	//TODO what happens if user changes input type 
+	//to text and enters random stuff
 	public void setBirthDate(LocalDate birthDate) throws UserDataException {
 		if (birthDate == null) {
 			throw new UserDataException("Error setting birth date");
 		}
 		this.birthDate = birthDate;
 	}
+	
 	public String getTelNumber() {
 		return telNumber;
 	}
@@ -131,6 +170,4 @@ public class User {
 		}
 		this.telNumber = telNumber;
 	}
-	
-	
 }
