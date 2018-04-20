@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import exceptions.UserDataException;
 import manager.UserManager;
+import model.Review;
 import model.User;
 
 @WebServlet("/login")
@@ -26,6 +28,12 @@ public class LoginServlet extends HttpServlet {
 			User user = userManager.login(email, password);
 			if (user != null) {
 				request.getSession().setAttribute("user", user);
+				ArrayList<Review> reviewsFromHosts = userManager.getReviewsFromHosts(email);
+				ArrayList<Review> reviewsFromGuests = userManager.getReviewsFromGuests(email);
+				if (reviewsFromHosts != null && !reviewsFromHosts.isEmpty()) {
+					request.getSession().setAttribute("reviewsFromHosts", reviewsFromHosts);
+					request.getSession().setAttribute("reviewsFromGuests", reviewsFromGuests);
+				}
 				request.getRequestDispatcher("WEB-INF/jsp/profile.jsp").forward(request, response);
 			}
 			else {

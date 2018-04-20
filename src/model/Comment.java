@@ -7,11 +7,11 @@ import exceptions.InvalidCommentIDException;
 public class Comment {
 
 	private int commentID;
-	private int postID;
 	private int userID;
+	private int postID;
 	private String user;
-	private LocalDate date;
 	private String Content;
+	private LocalDate date;
 
 	public Comment(int postID, int userID, String user, LocalDate date, String content) throws InvalidCommentIDException {
 		this.setPostID(postID);

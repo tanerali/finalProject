@@ -90,7 +90,7 @@
 		City<input type="text" class="form-control" name="city">
 		
 		<!-- Photo<input type="file" class="form-control" name="photo"> -->
-		Photo<input type = "file" class="form-control" name = "photo" size = "50" />
+		Photo<input type = "file" class="form-control" name = "photo" accept="image/*" size = "50" />
 		
 		Description<input type="text" class="form-control" name="description">
 		Birth date<input type="date" class="form-control" name="birthDate" value="1990-01-01">

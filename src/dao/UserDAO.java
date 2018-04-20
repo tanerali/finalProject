@@ -5,11 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import exceptions.UserDataException;
 import manager.DBManager;
+import model.Review;
 import model.User;
 
 public enum UserDAO {
@@ -77,6 +79,59 @@ public enum UserDAO {
 			return ps.executeUpdate() > 0 ? true : false;
 		}
 		
+	}
+
+	public ArrayList<Review> getReviewsFromHostsByEmail(String email) throws SQLException {
+		String sql = "SELECT CONCAT(u.first_name, \" \", u.last_name) as Reviewer, "
+				+ "CONCAT(u2.first_name, \" \", u2.last_name) as Reviewed, cr.content, cr.date " + 
+				"FROM CLIENT_REVIEWS cr " + 
+				"JOIN USERS u " + 
+				"ON cr.reviewer_id = u.ID " + 
+				"JOIN USERS u2 " + 
+				"ON cr.reviewed_id = u2.ID " + 
+				"WHERE u2.email = ?";
+		
+		ArrayList<Review> reviewsFromHosts = new ArrayList<>();
+		try (PreparedStatement ps = connection.prepareStatement(sql)) {
+			ps.setString(1, email);
+			ResultSet resultSet = ps.executeQuery();
+			while (resultSet.next()) {
+				Review review = new Review(
+						resultSet.getString(1),
+						resultSet.getString(2),
+						resultSet.getString("content"),
+						LocalDate.parse(resultSet.getString("date")));
+				reviewsFromHosts.add(review);
+			}
+			return reviewsFromHosts;
+		}
+	}
+
+	public ArrayList<Review> getReviewsFromGuestsByEmail(String email) throws SQLException {
+		String sql = "SELECT CONCAT(u.first_name, \" \", u.last_name) AS Reviewer, p.title, pc.content, date " + 
+				"FROM POST_COMMENTS pc " + 
+				"JOIN POSTS p " + 
+				"ON pc.post_id = p.ID " + 
+				"JOIN USERS u " + 
+				"ON pc.user_id = u.id " + 
+				"JOIN USERS h " + 
+				"ON p.host_id = h.id " + 
+				"WHERE h.email = ?;";
+		
+		ArrayList<Review> reviewsFromGuests = new ArrayList<>();
+		try (PreparedStatement ps = connection.prepareStatement(sql)){
+			ps.setString(1, email);
+			ResultSet resultSet = ps.executeQuery();
+			while (resultSet.next()) {
+				Review review = new Review(
+						resultSet.getString(1), 
+						resultSet.getString("title"),
+						resultSet.getString("content"),
+						LocalDate.parse(resultSet.getString("date")));
+				reviewsFromGuests.add(review);
+			}
+			return reviewsFromGuests;
+		}
 	}
 	
 	

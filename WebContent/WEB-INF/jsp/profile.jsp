@@ -1,7 +1,9 @@
+<%@page import="model.Review"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="model.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <title>Airbnb</title>
@@ -58,17 +60,91 @@
 
 	<%@ include file="header.jsp" %>
 	<h1>User details</h1>
-	<img class="img-responsive" alt="" src="getPic">
-	<ul>
-		<li><%= ((User)session.getAttribute("user")).getFirst_name() %></li>
-		<li><%= ((User)session.getAttribute("user")).getLast_name() %></li>
-		<li><%= ((User)session.getAttribute("user")).getEmail() %></li>
-		<li><%= ((User)session.getAttribute("user")).getGender() %></li>
-		<li><%= ((User)session.getAttribute("user")).getCountry() %></li>
-		<li><%= ((User)session.getAttribute("user")).getCity() %></li>
-		<li><%= ((User)session.getAttribute("user")).getDescription() %></li>
-		<li><%= ((User)session.getAttribute("user")).getBirthDate() %></li>
-		<li><%= ((User)session.getAttribute("user")).getTelNumber() %></li>
-	</ul>
+	
+
+	<div class="container">
+		<div class="row">
+
+			<div class="col-sm-3">
+				<div style="width: 240px; height: 240px">
+					<img class="img-responsive" alt="" src="getPic">
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">Verified info</div>
+					<div class="panel-body">
+						<ul>
+							<li>Email</li>
+						</ul>
+					</div>
+				</div>
+				<h2>Listings</h2>
+				<ul>
+					<li><img src="images/1.jpg" style="width: 320px; height: 100%"></li>
+				</ul>
+			</div>
+			
+			<% User user = (User)session.getAttribute("user"); %>
+			
+			<div class="col-sm-9">
+				<h1><%= user.getFirst_name()+ " "+ user.getLast_name()%></h1>
+				<ul>
+					<li><%= user.getEmail()%></li>
+					<li><%= user.getGender()%></li>
+					<li><%= user.getCountry()%></li>
+					<li><%= user.getCity()%></li>
+					<li><%= user.getDescription()%></li>
+					<li><%= user.getBirthDate()%></li>
+					<li><%= user.getTelNumber()%></li>
+				</ul>
+				
+				<h1>Reviews from Hosts</h1>
+				
+				<% 	if(session.getAttribute("reviewsFromHosts") != null) {
+						ArrayList<Review> reviews = ((ArrayList<Review>)session.getAttribute("reviewsFromHosts")); 
+						for(Review review: reviews) { %>
+						
+						<div class="panel panel-default">
+							<div class="panel-heading"><%= review.getReviewerName() %></div>
+							<div class="panel-body">
+								<%= review.getReview() %>
+							</div>
+							<div class="panel-body">
+								<%= review.getDate() %>
+							</div>
+						</div>
+						
+					<% } %>
+				 <% } %>
+					
+				<h1>Reviews from Guests of <%= user.getFirst_name()+ " "+ user.getLast_name() %></h1>
+				
+				<% 	if(session.getAttribute("reviewsFromGuests") != null) {
+						ArrayList<Review> reviews = ((ArrayList<Review>)session.getAttribute("reviewsFromGuests")); 
+						for(Review review: reviews) { %>
+						
+						<div class="panel panel-default">
+							<div class="panel-heading"><%= review.getReviewerName() %></div>
+							<div class="panel-body">
+								<%= review.getReview() %>
+							</div>
+							<div class="panel-body" style="font-style: italic;">
+								
+								Reviewed Property: <%= review.getReviewedName() %>
+							</div>
+							<div class="panel-body">
+								<%= review.getDate() %>
+							</div>
+						</div>
+						
+					<% } %>
+				 <% } %>
+				
+				
+			</div>
+		</div>
+		
+	</div>
+
+
 </body>
 </html>

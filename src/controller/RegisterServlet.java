@@ -49,7 +49,7 @@ public class RegisterServlet extends HttpServlet {
 			}
 			
 			
-			//file upload
+			//photo upload
 		    String path = "/Users/tanerali/Desktop/ServerUploads";
 		    Part filePart = request.getPart("photo");
 		    String fileName = getFileName(filePart);
