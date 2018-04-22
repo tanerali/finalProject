@@ -121,15 +121,15 @@
 				
 				<div id="editUser" style="display: none;">
 					<form action="profile" method="post">
-						First Name<input type="text" value="<%= user.getFirst_name()%>"><br>
-						Last Name<input type="text" value="<%=user.getLast_name()%>"><br>
-						Email<input type="email" value="<%= user.getEmail()%>"><br>
-						Gender<input type="text" value="<%= user.getGender()%>"><br>
-						Country<input type="text" value="<%= user.getCountry()%>"><br>
-						City<input type="text" value="<%= user.getCity()%>"><br>
-						Description<input type="text" value="<%= user.getDescription()%>"><br>
-						Birth Date<input type="date" value="<%= user.getBirthDate()%>"><br>
-						Telephone Number<input type="tel" value="<%= user.getTelNumber()%>"><br>
+						First Name<input type="text" name="firstName" value="<%= user.getFirst_name()%>"><br>
+						Last Name<input type="text" name="lastName" value="<%=user.getLast_name()%>"><br>
+						Email<input type="email" name="email" value="<%= user.getEmail()%>"><br>
+						Gender<input type="text" name="gender" value="<%= user.getGender()%>"><br>
+						Country<input type="text" name="country" value="<%= user.getCountry()%>"><br>
+						City<input type="text" name="city" value="<%= user.getCity()%>"><br>
+						Description<input type="text" name="description" value="<%= user.getDescription()%>"><br>
+						Birth Date<input type="date" name="birthDate" value="<%= user.getBirthDate()%>"><br>
+						Telephone Number<input type="tel" name="telNumber" value="<%= user.getTelNumber()%>"><br>
 						<input type="submit" value="Save">
 					</form>
 					<button style=
