@@ -46,20 +46,32 @@ public class Post {
 	private List<Comment> comments;
 	private int rating; // 0->5
 
-	public Post(String title, String description, int price, LocalDate dateOfPosting, Type type)
-			throws InvalidPostDataExcepetion {
-		this.setDateOfPosting(dateOfPosting);
+	public Post(
+			String title, 
+			String description, 
+			int price, 
+			LocalDate dateOfPosting, 
+			Type type,
+			int hostID) throws InvalidPostDataExcepetion {
+		this.setTitle(title);
 		this.setDescription(description);
 		this.setPrice(price);
-		this.setTitle(title);
+		this.setDateOfPosting(dateOfPosting);
 		this.setType(type);
+		this.hostID = hostID;
 		comments = new ArrayList<>();
 		this.rating = 0;
 	}
 
-	public Post(int postID, String title, String description, int price, LocalDate dateOfPosting, Type type, int hostID)
-			throws InvalidPostDataExcepetion {
-		this(title, description, price, dateOfPosting, type);
+	public Post(
+			int postID, 
+			String title, 
+			String description, 
+			int price, 
+			LocalDate dateOfPosting, 
+			Type type, 
+			int hostID) throws InvalidPostDataExcepetion {
+		this(title, description, price, dateOfPosting, type, hostID);
 		this.postID = postID;
 	}
 

@@ -46,7 +46,8 @@ public class RegisterServlet extends HttpServlet {
 			}
 
 			// photo upload
-			String path = "/home/dnn";
+//			String path = "/home/dnn";
+			String path = "/Users/tanerali/Desktop/ServerUploads";
 			Part filePart = request.getPart("photo");
 			String fileName = getFileName(filePart);
 			String absoluteFilePath = path + File.separator + fileName;
@@ -63,10 +64,18 @@ public class RegisterServlet extends HttpServlet {
 				throw new UserDataException("You did not specify a photo to upload");
 			}
 
-			user = new User(request.getParameter("firstName"), request.getParameter("lastName"),
-					request.getParameter("email"), request.getParameter("pass1"), request.getParameter("gender"),
-					request.getParameter("city"), request.getParameter("country"), absoluteFilePath,
-					request.getParameter("description"), birthDate, request.getParameter("telNumber"));
+			user = new User(
+					request.getParameter("firstName"), 
+					request.getParameter("lastName"),
+					request.getParameter("email"), 
+					request.getParameter("pass1"), 
+					request.getParameter("gender"),
+					request.getParameter("city"), 
+					request.getParameter("country"), 
+					absoluteFilePath,
+					request.getParameter("description"), 
+					birthDate, 
+					request.getParameter("telNumber"));
 			if (userManager.register(user)) {
 				request.getRequestDispatcher("login.jsp").forward(request, response);
 			}

@@ -57,14 +57,12 @@ public enum PostDAO {
 	}
 
 	public int insertPost(Post newPost) throws InvalidPostDataExcepetion, SQLException {
-		PreparedStatement statement = connection.prepareStatement(insertPost);
+		PreparedStatement statement = connection.prepareStatement(insertPost, Statement.RETURN_GENERATED_KEYS);
 		int postId = 0;
 		try {
-			newPost.setHostID(21); // only available id in the DB atm
 			statement.setInt(1, newPost.getTypeLikeID());
 			statement.setString(2, newPost.getTitle());
 			statement.setInt(3, newPost.getPrice());
-			statement.setString(2, newPost.getTitle());
 			statement.setInt(4, newPost.getHostID());
 			statement.setDate(5, Date.valueOf(newPost.getDateOfPosting()));
 			statement.setString(6, newPost.getDescription());
@@ -166,6 +164,16 @@ public enum PostDAO {
 			posts.add(newPost);
 		}
 		return posts;
+	}
+
+	public void insertImageToPost(String path, int postID) throws SQLException {
+
+		String insertImage = "INSERT INTO POSTS_PHOTOS(post_id,photo) " + "VALUES(?,?);";
+		PreparedStatement statement = connection.prepareStatement(insertImage);
+		statement.setInt(1, postID);
+		statement.setString(2, path);
+		statement.executeUpdate();
+
 	}
 
 	public void removePost(int id) throws SQLException {

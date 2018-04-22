@@ -26,7 +26,7 @@ public enum DBManager {
 			return;
 		}
 		System.out.println("Driver loaded");
-		
+
 		// create connection
 		try {
 			conn = DriverManager.getConnection(URL, DB_USER, DB_PASS);

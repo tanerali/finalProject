@@ -41,8 +41,8 @@ public class ProfileServlet extends HttpServlet {
 				throw new UserDataException("Invalid birth date entered");
 			}
 			if (user != null) {
-				user.setFirst_name(request.getParameter("firstName"));
-				user.setLast_name(request.getParameter("lastName"));
+				user.setFirstName(request.getParameter("firstName"));
+				user.setLastName(request.getParameter("lastName"));
 				user.setEmail(request.getParameter("email"));
 				user.setGender(request.getParameter("gender"));
 				user.setCity(request.getParameter("city"));
@@ -55,6 +55,8 @@ public class ProfileServlet extends HttpServlet {
 				request.getRequestDispatcher("WEB-INF/jsp/profile.jsp").forward(request, response);
 			}
 		} catch (UserDataException e1) {
+			request.setAttribute("exception", e1);
+			request.getRequestDispatcher("WEB-INF/jsp/profile.jsp").forward(request, response);
 			System.out.println("Invalid user data; "+ e1.getMessage());
 		} catch (SQLException e) {
 			System.out.println("Couldnt update record in db; "+ e.getMessage());

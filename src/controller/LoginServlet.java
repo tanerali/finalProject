@@ -23,13 +23,14 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		System.out.println(email + " " + password);
+		
 		try {
 			User user = userManager.login(email, password);
 			if (user != null) {
 				request.getSession().setAttribute("user", user);
 				ArrayList<Review> reviewsFromHosts = userManager.getReviewsFromHosts(email);
 				ArrayList<Review> reviewsFromGuests = userManager.getReviewsFromGuests(email);
+				
 				if (reviewsFromHosts != null && !reviewsFromHosts.isEmpty()) {
 					request.getSession().setAttribute("reviewsFromHosts", reviewsFromHosts);
 					request.getSession().setAttribute("reviewsFromGuests", reviewsFromGuests);
