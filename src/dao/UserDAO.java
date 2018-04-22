@@ -138,7 +138,7 @@ public enum UserDAO {
 		String sql = "UPDATE USERS \n" + 
 				"SET first_name=?, last_name=?, email=?, gender=?, city=?, country=?, "
 				+ "description=?, birth_date=?, telephone_number=? " + 
-				"WHERE ID = (SELECT ID FROM USERS WHERE email = ?);";
+				"WHERE email = ?;";
 		
 		try (PreparedStatement ps = connection.prepareStatement(sql)) {
 			ps.setString(1, user.getFirst_name());
