@@ -1,3 +1,5 @@
+<%@page import="model.Post"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -34,24 +36,45 @@
 <script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/bootstrap.js"></script>
 <body>
-	
-	
-		<%@ include file="WEB-INF/jsp/header.jsp" %>
-		
-		<div class="w3layouts-banner-slider">
-			<div class="container">
-				<div class="slider">
-					<div class="callbacks_container">
-						<ul class="rslides callbacks callbacks1" id="slider4">
-							<table id="search-table"></table>
-						</ul>
-						
-					</div>
-				</div>
-			</div>
-		</div>
 
-	
+
+	<%@ include file="WEB-INF/jsp/header.jsp"%>
+
+	<%
+	ArrayList<Post> posts = (ArrayList)request.getAttribute("posts");
+	%>
+
+	<div class="container">
+		<h2>Image Gallery</h2>
+		<p>The .thumbnail class can be used to display an image gallery.</p>
+		<p>The .caption class adds proper padding and a dark grey color to
+			text inside thumbnails.</p>
+		<p>Click on the images to enlarge them.</p>
+		<div class="row">
+			<%
+			if (posts != null) {
+				for (Post post: posts) { %>
+
+					<div class="col-md-4">
+						<div class="thumbnail">
+							<a href="/w3images/lights.jpg" target="_blank"> <img
+								src="/w3images/lights.jpg" alt="Lights" style="width: 100%">
+								<div class="caption">
+									<p><%= post.getTitle() %></p>
+								</div>
+							</a>
+						</div>
+					</div>
+
+			<% }
+			}
+			%>
+			
+			
+		</div>
+	</div>
+
+
 
 	<script>
 		var req = new XMLHttpRequest();

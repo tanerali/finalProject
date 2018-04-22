@@ -33,7 +33,7 @@
 								<span class="closebtn" onclick="closeSearch()"
 									title="Close Overlay">X</span>
 								<div class="overlay-content">
-									<form action="index.html">
+									<form action="index.jsp">
 										<input type="text" placeholder="Search.." name="search">
 										<button type="submit">
 											<i class="fa fa-search"></i>
@@ -43,7 +43,7 @@
 							</div>
 							<li><a id="openBtn" class="active" onclick="openSearch()">Search</a></li>
 							<li><a href="host.jsp">Host</a></li>
-							<li><a href="explore.jsp" onclick="explore(this);">Explore</a></li>
+							<li><a href="explore" onclick="explore(this);">Explore</a></li>
 							<%
 								if (session.getAttribute("user") == null) {
 							%>

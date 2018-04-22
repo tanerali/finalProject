@@ -55,6 +55,10 @@ public enum PostManager {
 		}
 		return posts;
 	}
+	
+	public List<Post> getAllPosts() throws SQLException, InvalidPostDataExcepetion {
+		return PostDAO.instance.getAllPosts();
+	}
 
 	public List<Post> searchPostByCity(String city) throws SQLException, InvalidPostDataExcepetion {
 		return PostDAO.instance.getAllPostsByCity(city);
