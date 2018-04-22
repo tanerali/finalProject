@@ -6,6 +6,11 @@
 <title>Airbnb</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
+<<<<<<< HEAD =======
+<script type="application/x-javascript">
+	
+
+</script>
 <!-- bootstrap-css -->
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css"
 	media="all" />
@@ -35,7 +40,7 @@
 <script src="js/bootstrap.js"></script>
 <body>
 	<!-- banner -->
-	<div id="top" class="banner1">
+	<div class="banner1">
 		<div class="header">
 			<div class="container">
 				<div class="header-left">
@@ -48,7 +53,7 @@
 				<div class="header-right">
 					<div class="w3-header-bottom">
 						<div class="top-nav">
-							<nav class="navbar navbar-default">
+							<nav class="navbar navbar-default"> <<<<<<< HEAD
 							<div class="navbar-header">
 								<button type="button" class="navbar-toggle collapsed"
 									data-toggle="collapse"
@@ -68,19 +73,52 @@
 										<div class="overlay-content">
 											<input type="text" id="search" name="search">
 											<button type="button" onclick="search();">Search</button>
-										</div>
-									</div>
-									<li><a id="openBtn" class="active" onclick="openSearch();">Search</a></li>
+											=======
+											<div class="navbar-header">
+												<button type="button" class="navbar-toggle collapsed"
+													data-toggle="collapse"
+													data-target="#bs-example-navbar-collapse-1">
+													<span class="sr-only">Toggle navigation</span> <span
+														class="icon-bar"></span> <span class="icon-bar"></span> <span
+														class="icon-bar"></span>
+												</button>
+											</div>
+											<!-- Collect the nav links, forms, and other content for toggling -->
+											<div class="collapse navbar-collapse"
+												id="bs-example-navbar-collapse-1">
+												<ul class="nav navbar-nav">
 
-									<li><a href="host.html">Host</a></li>
-									<li><a href="explore.html" onclick="explore(this);"
-										rel="explore.html">Explore</a></li>
-									<li><a href="login.html">Login</a></li>
-									<li><a href="register.html">Register</a></li>
-									<li><a href="profile.jsp">Profile</a></li>
-								</ul>
-								<div class="clearfix"></div>
-							</div>
+													<div id="myOverlay" class="overlay">
+														<span class="closebtn" onclick="closeSearch()"
+															title="Close Overlay">×</span>
+														<div class="overlay-content">
+															<input type="text" id="search" name="search">
+															<button type="button" onclick="search();">Search</button>
+														</div>
+													</div>
+													<li><a id="openBtn" class="active"
+														onclick="openSearch();">Search</a></li>
+
+													<li><a href="host.html">Host</a></li>
+													<li><a href="explore.html" onclick="explore(this);"
+														rel="explore.html">Explore</a></li>
+													<%
+														if (session.getAttribute("user") == null) {
+													%>
+													<li><a href="login.jsp">Login</a></li>
+													<li><a href="register.jsp">Register</a></li>
+													<%
+														} else {
+													%>
+													<li><a href="profile">Profile</a></li>
+													<li><a href="logout">Logout</a></li>
+													<%
+														}
+													%>
+
+												</ul>
+												<div class="clearfix"></div>
+											</div>
 							</nav>
 						</div>
 						<div class="clearfix"></div>
@@ -102,7 +140,40 @@
 		</div>
 
 	</div>
+	<<<<<<< HEAD =======
+	<!-- //banner -->
 
+	<!-- welcome -->
+	<!-- //services -->
+	<!-- copyright -->
+	<!-- //copyright -->
+	<script src="js/responsiveslides.min.js"></script>
+	<script src="js/SmoothScroll.min.js"></script>
+	<script type="text/javascript" src="js/move-top.js"></script>
+	<script type="text/javascript" src="js/easing.js"></script>
+
+	<!-- here stars scrolling icon -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear'
+				};
+			 */
+
+			$().UItoTop({
+				easingType : 'easeOutQuart'
+			});
+
+		});
+	</script>
+
+
+
+	>>>>>>> 490ac7461d529613ea9366c1d35b9860275ee048
 	<script>
 		var req = new XMLHttpRequest();
 		function openSearch() {
@@ -120,11 +191,9 @@
 			req.send(null);
 		}
 		function proccesSearch() {
-			if (req.readyState == 4 && req.status == 200
-					&& req.responseText != "[]") {
+			if (req.readyState == 4 && req.status == 200) {
 				closeSearch();
 				var jsonSearch = eval('(' + req.responseText + ')');
-				document.getElementById("top").className = "n";
 				var table = document.getElementById("search-table");
 				table.innerHTML = "";
 				var headRow = table.insertRow(0);
@@ -136,10 +205,10 @@
 					cell = row.insertCell(0);
 					cell.innerHTML = results[i++].title;
 				}
+
 			}
 
 		}
 	</script>
-
 </body>
 </html>

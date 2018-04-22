@@ -164,7 +164,7 @@
 
 		}
 		function upload() {
-			
+
 			req.open("Post", "upload");
 			req.onreadystatechange = proccessUpload;
 			req.send("title=" + document.getElementById("title").value
