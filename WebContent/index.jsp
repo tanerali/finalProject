@@ -6,28 +6,6 @@
 <title>Airbnb</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
-<script type="application/x-javascript">
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
-
-
-
-
-
-
-
-
-</script>
 <!-- bootstrap-css -->
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css"
 	media="all" />
@@ -84,7 +62,6 @@
 							<div class="collapse navbar-collapse"
 								id="bs-example-navbar-collapse-1">
 								<ul class="nav navbar-nav">
-
 									<div id="myOverlay" class="overlay">
 										<span class="closebtn" onclick="closeSearch()"
 											title="Close Overlay">×</span>
@@ -125,29 +102,7 @@
 		</div>
 
 	</div>
-	<script src="js/responsiveslides.min.js"></script>
-	<script src="js/SmoothScroll.min.js"></script>
-	<script type="text/javascript" src="js/move-top.js"></script>
-	<script type="text/javascript" src="js/easing.js"></script>
 
-	<!-- here stars scrolling icon -->
-	<script type="text/javascript">
-		$(document).ready(function() {
-			/*
-				var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear'
-				};
-			 */
-
-			$().UItoTop({
-				easingType : 'easeOutQuart'
-			});
-
-		});
-	</script>
 	<script>
 		var req = new XMLHttpRequest();
 		function openSearch() {
