@@ -65,7 +65,6 @@ public enum PostManager {
 	}
 
 	public void insertPost(Post newPost) throws InvalidPostDataExcepetion, SQLException {
-		PostDAO.instance.insertPost(newPost.getTitle(), newPost.getDescription(), newPost.getPrice(),
-				newPost.getDateOfPosting(), newPost.getType(), newPost.getHostID());
+		PostDAO.instance.insertPost(newPost);
 	}
 }

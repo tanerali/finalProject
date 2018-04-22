@@ -18,12 +18,12 @@ import model.User;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private UserManager userManager = new UserManager();
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		
+		System.out.println(email + " " + password);
 		try {
 			User user = userManager.login(email, password);
 			if (user != null) {
@@ -35,8 +35,7 @@ public class LoginServlet extends HttpServlet {
 					request.getSession().setAttribute("reviewsFromGuests", reviewsFromGuests);
 				}
 				request.getRequestDispatcher("WEB-INF/jsp/profile.jsp").forward(request, response);
-			}
-			else {
+			} else {
 				request.setAttribute("wrong_password", new Object());
 				request.getRequestDispatcher("login.jsp").forward(request, response);
 			}
@@ -47,7 +46,7 @@ public class LoginServlet extends HttpServlet {
 			request.setAttribute("exception", e);
 			request.getRequestDispatcher("WEB-INF/jsp/error.jsp").forward(request, response);
 		}
-		
+
 	}
 
 }

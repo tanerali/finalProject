@@ -57,12 +57,11 @@ public enum PostDAO {
 		return posts;
 	}
 
-	public void insertPost(String title, String description, int price, LocalDate dateOfPosting, Post.Type type,
-			int hostID) throws InvalidPostDataExcepetion, SQLException {
+	public void insertPost(Post newPost) throws InvalidPostDataExcepetion, SQLException {
 		PreparedStatement statement = connection.prepareStatement(insertPost);
 		try {
-			Post newPost = new Post(title, description, price, dateOfPosting, type);
 			newPost.setHostID(21); // only available id in the DB atm
+			
 			statement.setInt(1, newPost.getTypeLikeID());
 			statement.setString(2, newPost.getTitle());
 			statement.setInt(3, newPost.getPrice());

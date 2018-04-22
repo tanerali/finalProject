@@ -31,9 +31,12 @@ public class Post {
 				return null;
 			}
 		}
+		public static Type getType(String name) {
+			return Type.valueOf(name.toUpperCase());
+		}
 	}
 
-	private int postID; // not sure if needed!
+	private int postID;
 	private String title;
 	private String description;
 	private int price;
