@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,11 +56,11 @@ public enum PostDAO {
 		return posts;
 	}
 
-	public void insertPost(Post newPost) throws InvalidPostDataExcepetion, SQLException {
+	public int insertPost(Post newPost) throws InvalidPostDataExcepetion, SQLException {
 		PreparedStatement statement = connection.prepareStatement(insertPost);
+		int postId = 0;
 		try {
 			newPost.setHostID(21); // only available id in the DB atm
-			
 			statement.setInt(1, newPost.getTypeLikeID());
 			statement.setString(2, newPost.getTitle());
 			statement.setInt(3, newPost.getPrice());
@@ -69,10 +68,15 @@ public enum PostDAO {
 			statement.setInt(4, newPost.getHostID());
 			statement.setDate(5, Date.valueOf(newPost.getDateOfPosting()));
 			statement.setString(6, newPost.getDescription());
-			statement.executeUpdate();
+			postId = statement.executeUpdate();
+			ResultSet rs = statement.getGeneratedKeys();
+			if (rs.next()) {
+				postId = rs.getInt(1);
+			}
 		} finally {
 			statement.close();
 		}
+		return postId;
 	}
 
 	public List<Post> getAllPostsByUserID(int id) throws SQLException, InvalidPostDataExcepetion {

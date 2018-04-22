@@ -34,7 +34,6 @@ public class UploadPostServlet extends HttpServlet {
 			System.out.println("not logged");
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		} else {
-
 			System.out.println("logged");
 			// UPLOAD PICTURE FIRST
 
@@ -64,7 +63,7 @@ public class UploadPostServlet extends HttpServlet {
 			// TODO ADD PHOTO
 			try {
 				Post newPost = new Post(title, description, price, LocalDate.now(), Post.Type.getType(type));
-				PostManager.instance.insertPost(newPost);
+				int postID = PostManager.instance.insertPost(newPost);
 			} catch (InvalidPostDataExcepetion | SQLException e) {
 				e.printStackTrace();
 			}
