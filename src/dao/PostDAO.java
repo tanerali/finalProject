@@ -57,8 +57,8 @@ public enum PostDAO {
 		return posts;
 	}
 
-	public void insertPost(String title, String description, int price, LocalDate dateOfPosting, Post.Type type)
-			throws InvalidPostDataExcepetion, SQLException {
+	public void insertPost(String title, String description, int price, LocalDate dateOfPosting, Post.Type type,
+			int hostID) throws InvalidPostDataExcepetion, SQLException {
 		PreparedStatement statement = connection.prepareStatement(insertPost);
 		try {
 			Post newPost = new Post(title, description, price, dateOfPosting, type);

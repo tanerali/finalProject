@@ -1,14 +1,10 @@
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
 <title>Airbnb</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
-<!-- bootstrap-css -->
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css"
 	media="all" />
-<!--// bootstrap-css -->
 
 <!-- css -->
 <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
@@ -48,50 +44,39 @@
 					<div class="w3-header-bottom">
 						<div class="top-nav">
 							<nav class="navbar navbar-default">
-							<div class="navbar-header">
-								<button type="button" class="navbar-toggle collapsed"
-									data-toggle="collapse"
-									data-target="#bs-example-navbar-collapse-1">
-									<span class="sr-only">Toggle navigation</span> <span
-										class="icon-bar"></span> <span class="icon-bar"></span> <span
-										class="icon-bar"></span>
-								</button>
-							</div>
-							<div class="collapse navbar-collapse"
-								id="bs-example-navbar-collapse-1">
-								<ul class="nav navbar-nav">
-									<div id="myOverlay" class="overlay">
-										<span class="closebtn" onclick="closeSearch()"
-											title="Close Overlay">×</span>
-										<div class="overlay-content">
-											<input type="text" id="search" name="search">
-											<button type="button" onclick="search();">Search</button>
+								<div class="navbar-header">
+									<button type="button" class="navbar-toggle collapsed"
+										data-toggle="collapse"
+										data-target="#bs-example-navbar-collapse-1">
+										<span class="sr-only">Toggle navigation</span> <span
+											class="icon-bar"></span> <span class="icon-bar"></span> <span
+											class="icon-bar"></span>
+									</button>
+								</div>
+								<!-- Collect the nav links, forms, and other content for toggling -->
+								<div class="collapse navbar-collapse"
+									id="bs-example-navbar-collapse-1">
+									<ul class="nav navbar-nav">
+										<div id="myOverlay" class="overlay">
+											<span class="closebtn" onclick="closeSearch()"
+												title="Close Overlay">×</span>
+											<div class="overlay-content">
+												<input type="text" id="search" name="search">
+												<button type="button" onclick="search();">Search</button>
+											</div>
 										</div>
-<<<<<<< HEAD
-									</div>
-									<li><a id="openBtn" class="active" onclick="openSearch();">Search</a></li>
+										<li><a id="openBtn" class="active"
+											onclick="openSearch();">Search</a></li>
 
-									<li><a href="host.html">Host</a></li>
-									<li><a href="explore.html" onclick="explore(this);"
-										rel="explore.html">Explore</a></li>
-									<li><a href="login.html">Login</a></li>
-									<li><a href="register.html">Register</a></li>
-									<li><a href="profile.jsp">Profile</a></li>
-								</ul>
-								<div class="clearfix"></div>
-							</div>
-=======
-										<li><a id="openBtn" class="active" onclick="openSearch()">Search</a></li>
 										<li><a href="host.html">Host</a></li>
-										<li><a href="explore.html">Explore</a></li>
-										<li><a href="login.jsp">Login</a></li>
-										<li><a href="register.jsp">Register</a></li>
-										<li><a href="profile">Profile</a></li>
-										<li><a href="logout">Logout</a></li>
+										<li><a href="explore.html" onclick="explore(this);"
+											rel="explore.html">Explore</a></li>
+										<li><a href="login.html">Login</a></li>
+										<li><a href="register.html">Register</a></li>
+										<li><a href="profile.jsp">Profile</a></li>
 									</ul>
 									<div class="clearfix"></div>
 								</div>
->>>>>>> 490ac7461d529613ea9366c1d35b9860275ee048
 							</nav>
 						</div>
 						<div class="clearfix"></div>
@@ -104,15 +89,42 @@
 			<div class="container">
 				<div class="slider">
 					<div class="callbacks_container">
-						<ul class="rslides callbacks callbacks1" id="slider4">
-							<table id="search-table"></table>
-						</ul>
-						
+						<table id="search-table"></table>
+						<div class="inputPost">
+							<table>
+								<tr>
+									<td><input type="text" name="title" id="title"
+										placeholder="Title"></td>
+								</tr>
+								<tr>
+									<td><textarea name="description" id="description"
+											placeholder="description"></textarea></td>
+								</tr>
+
+								<tr>
+									<td><input type="number" name="price" id="price"
+										placeholder="Price"></td>
+								</tr>
+
+								<tr>
+									<td><select name="type" id="type">
+											<option id="opt1" value="Hotel">Hotel</option>
+											<option id="opt2" value="Hotel">Apartment</option>
+											<option id="opt3" value="Hotel">House</option>
+											<option id="opt4" value="Hotel">Cottage</option>
+									</select></td>
+								</tr>
+								<tr>
+									<td>
+										<button type="button" onclick="upload();">Upload</button>
+									</td>
+								</tr>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
 	</div>
 
 	<script>
@@ -150,6 +162,16 @@
 				}
 			}
 
+		}
+		function upload() {
+
+			req.open("Post", "upload");
+			req.onreadystatechange = proccessUpload;
+			req.send("title=" + document.getElementById("title").value
+
+			+ "&description=" + document.getElementById("description").value
+					+ "&price=" + document.getElementById("price").value
+					+ "&type=" + document.getElementById("type").value);
 		}
 	</script>
 
