@@ -68,6 +68,15 @@
 								</tr>
 								<tr>
 									<td>
+										<form method="post" action="upload"
+											enctype="multipart/form-data">
+											<input type="file" id="myFileField" accept="image/*"
+												name="file"><br>
+										</form>
+									</td>
+								</tr>
+								<tr>
+									<td>
 										<button type="button" onclick="upload();">Upload</button>
 									</td>
 								</tr>
@@ -119,18 +128,20 @@
 
 			req.open("Post", "upload");
 			req.onreadystatechange = proccessUpload;
-			req.setRequestHeader("Content-type",
-					"application/x-www-form-urlencoded");
-			req.send("title=" + document.getElementById("title").value
 
-			+ "&description=" + document.getElementById("description").value
-					+ "&price=" + document.getElementById("price").value
-					+ "&type=" + document.getElementById("type").value);
+			var formData = new FormData();
+			formData.append("file",
+					document.getElementById("myFileField").files[0]);
+			formData.append("title", document.getElementById("title").value);
+			formData.append("description", document
+					.getElementById("description").value);
+			formData.append("price", document.getElementById("price").value);
+			formData.append("type", document.getElementById("type").value);
+			req.send(formData);
 		}
 		function proccessUpload() {
 			alert("Arede");
 		}
 	</script>
-
 </body>
 </html>

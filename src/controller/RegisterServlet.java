@@ -46,7 +46,8 @@ public class RegisterServlet extends HttpServlet {
 			}
 
 			// photo upload
-			String path = "/home/dnn";
+//			String path = "/home/dnn";
+			String path = "/Users/tanerali/Desktop/ServerUploads";
 			Part filePart = request.getPart("photo");
 			String fileName = getFileName(filePart);
 			String absoluteFilePath = path + File.separator + fileName;
@@ -92,7 +93,7 @@ public class RegisterServlet extends HttpServlet {
 	/**
 	 * Utility method to get file name from HTTP header content-disposition
 	 */
-	private String getFileName(Part part) {
+	static public String getFileName(Part part) {
 		String contentDisp = part.getHeader("content-disposition");
 		String[] tokens = contentDisp.split(";");
 		for (String token : tokens) {
