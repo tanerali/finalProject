@@ -66,7 +66,7 @@ public enum PostDAO {
 			statement.setInt(4, newPost.getHostID());
 			statement.setDate(5, Date.valueOf(newPost.getDateOfPosting()));
 			statement.setString(6, newPost.getDescription());
-			postId = statement.executeUpdate();
+			statement.executeUpdate();
 			ResultSet rs = statement.getGeneratedKeys();
 			if (rs.next()) {
 				postId = rs.getInt(1);
@@ -183,6 +183,21 @@ public enum PostDAO {
 			ps.executeUpdate();
 		} finally {
 			ps.close();
+		}
+	}
+
+	public String getThumbnailPath(int postID) throws SQLException {
+		String sql = "SELECT photo " + 
+				"FROM POSTS_PHOTOS " + 
+				"WHERE post_id=? LIMIT 1";
+		
+		try (PreparedStatement ps = connection.prepareStatement(sql)) {
+			ps.setInt(1, postID);
+			ResultSet resultSet = ps.executeQuery();
+			if (resultSet.next()) {
+				return resultSet.getString("photo");
+			}
+			return null;
 		}
 	}
 }

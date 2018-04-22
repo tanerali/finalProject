@@ -67,7 +67,6 @@ public class UploadPostServlet extends HttpServlet {
 				Post newPost = new Post(title, description, price, LocalDate.now(), Post.Type.getType(type), hostID);
 				int postID = PostManager.instance.insertPost(newPost);
 				PostDAO.instance.insertImageToPost(absoluteFilePath, postID);
-				System.out.println(postID);
 			} catch (InvalidPostDataExcepetion | SQLException e) {
 				e.printStackTrace();
 			}

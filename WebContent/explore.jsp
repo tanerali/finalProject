@@ -45,11 +45,8 @@
 	%>
 
 	<div class="container">
-		<h2>Image Gallery</h2>
-		<p>The .thumbnail class can be used to display an image gallery.</p>
-		<p>The .caption class adds proper padding and a dark grey color to
-			text inside thumbnails.</p>
-		<p>Click on the images to enlarge them.</p>
+		<h2>Explore All The Great Places You Can Stay</h2>
+		
 		<div class="row">
 			<%
 			if (posts != null) {
@@ -57,8 +54,8 @@
 
 					<div class="col-md-4">
 						<div class="thumbnail">
-							<a href="/w3images/lights.jpg" target="_blank"> <img
-								src="/w3images/lights.jpg" alt="Lights" style="width: 100%">
+							<a href="" target="_blank"> 
+								<img src="getThumbnail?id=<%= post.getPostID()%>" alt="" style="width: 100%">
 								<div class="caption">
 									<p><%= post.getTitle() %></p>
 								</div>

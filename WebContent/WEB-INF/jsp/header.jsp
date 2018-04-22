@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <div class="header">
 	<div class="container">
 		<div class="header-left">
@@ -29,20 +28,19 @@
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
 
+
 							<div id="myOverlay" class="overlay">
 								<span class="closebtn" onclick="closeSearch()"
 									title="Close Overlay">X</span>
 								<div class="overlay-content">
-									<form action="index.jsp">
-										<input type="text" placeholder="Search.." name="search">
-										<button type="submit">
-											<i class="fa fa-search"></i>
-										</button>
-									</form>
+									<input type="text" id="search" placeholder="Search.."
+										name="search">
+									<button type="submit" onclick="search()"></button>
 								</div>
 							</div>
+
+
 							<li><a id="openBtn" class="active" onclick="openSearch()">Search</a></li>
-							<li><a href="host.jsp">Host</a></li>
 							<li><a href="explore" onclick="explore(this);">Explore</a></li>
 							<%
 								if (session.getAttribute("user") == null) {
@@ -52,6 +50,7 @@
 							<%
 								} else {
 							%>
+							<li><a href="host.jsp">Host</a></li>
 							<li><a href="profile">Profile</a></li>
 							<li><a href="logout">Logout</a></li>
 							<%

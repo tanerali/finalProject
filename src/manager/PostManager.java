@@ -71,4 +71,8 @@ public enum PostManager {
 	public int insertPost(Post newPost) throws InvalidPostDataExcepetion, SQLException {
 		return PostDAO.instance.insertPost(newPost);
 	}
+
+	public String getThumbnail(int postID) throws SQLException {
+		return PostDAO.instance.getThumbnailPath(postID);
+	}
 }
