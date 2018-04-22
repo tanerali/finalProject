@@ -84,7 +84,7 @@ public class RegisterServlet extends HttpServlet {
 	/**
 	 * Utility method to get file name from HTTP header content-disposition
 	 */
-	private String getFileName(Part part) {
+	static public String getFileName(Part part) {
 		String contentDisp = part.getHeader("content-disposition");
 		String[] tokens = contentDisp.split(";");
 		for (String token : tokens) {
