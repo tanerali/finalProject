@@ -41,8 +41,8 @@ public class ProfileServlet extends HttpServlet {
 				throw new UserDataException("Invalid birth date entered");
 			}
 			if (user != null) {
-				user.setFirst_name(request.getParameter("firstName"));
-				user.setLast_name(request.getParameter("lastName"));
+				user.setFirstName(request.getParameter("firstName"));
+				user.setLastName(request.getParameter("lastName"));
 				user.setEmail(request.getParameter("email"));
 				user.setGender(request.getParameter("gender"));
 				user.setCity(request.getParameter("city"));

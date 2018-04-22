@@ -60,12 +60,9 @@ public enum PostDAO {
 	public void insertPost(Post newPost) throws InvalidPostDataExcepetion, SQLException {
 		PreparedStatement statement = connection.prepareStatement(insertPost);
 		try {
-			newPost.setHostID(21); // only available id in the DB atm
-			
 			statement.setInt(1, newPost.getTypeLikeID());
 			statement.setString(2, newPost.getTitle());
 			statement.setInt(3, newPost.getPrice());
-			statement.setString(2, newPost.getTitle());
 			statement.setInt(4, newPost.getHostID());
 			statement.setDate(5, Date.valueOf(newPost.getDateOfPosting()));
 			statement.setString(6, newPost.getDescription());
@@ -156,9 +153,14 @@ public enum PostDAO {
 	private List<Post> getResult(ResultSet result) throws InvalidPostDataExcepetion, SQLException {
 		List<Post> posts = new ArrayList<Post>();
 		while (result.next()) {
-			Post newPost = new Post(result.getInt("ID"), result.getString("title"), result.getString("description"),
-					result.getInt("price"), result.getDate("date_of_posting").toLocalDate(),
-					Post.Type.getType(result.getInt("type_id")), result.getInt("host_id"));
+			Post newPost = new Post(
+					result.getInt("ID"), 
+					result.getString("title"), 
+					result.getString("description"),
+					result.getInt("price"), 
+					result.getDate("date_of_posting").toLocalDate(),
+					Post.Type.getType(result.getInt("type_id")), 
+					result.getInt("host_id"));
 			posts.add(newPost);
 		}
 		return posts;

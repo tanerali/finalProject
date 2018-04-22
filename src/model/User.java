@@ -19,27 +19,6 @@ public class User {
 	private LocalDate birthDate;
 	private String telNumber;
 	
-	
-	public User(String firstName, 
-				String lastName, 
-				String email, 
-				String gender, 
-				String city, 
-				String country,
-				String description, 
-				LocalDate birthDate, 
-				String telNumber) throws UserDataException {
-		setFirst_name(firstName);
-		setLast_name(lastName);
-		setEmail(email);
-		setGender(gender);
-		setCity(city);
-		setCountry(country);
-		setDescription(description);
-		setBirthDate(birthDate);
-		setTelNumber(telNumber);
-	}
-
 	public User(String firstName, 
 				String lastName, 
 				String email, 
@@ -52,8 +31,8 @@ public class User {
 				LocalDate birthDate, 
 				String telNumber) throws UserDataException {
 		
-		setFirst_name(firstName);
-		setLast_name(lastName);
+		setFirstName(firstName);
+		setLastName(lastName);
 		setEmail(email);
 		setPassword(password);
 		setGender(gender);
@@ -65,20 +44,46 @@ public class User {
 		setTelNumber(telNumber);
 	}
 	
-	public String getFirst_name() {
+	
+	
+	public User(int userID,
+			String firstName, 
+			String lastName, 
+			String email, 
+			String password, 
+			String gender, 
+			String city,
+			String country, 
+			String photo, 
+			String description, 
+			LocalDate birthDate, 
+			String telNumber) throws UserDataException {
+		
+		this(firstName,lastName,email, password, gender, city, country, 
+				photo, description, birthDate, telNumber);
+		this.userID = userID;
+	}
+
+
+
+	public int getUserID() {
+		return userID;
+	}
+
+	public String getFirstName() {
 		return firstName;
 	}
-	public void setFirst_name(String first_name) throws UserDataException {
+	public void setFirstName(String first_name) throws UserDataException {
 		if (first_name.isEmpty() || !first_name.matches("[a-zA-Z]+")) {
 			throw new UserDataException("Error setting first name");
 		}
 		this.firstName = first_name;
 	}
 	
-	public String getLast_name() {
+	public String getLastName() {
 		return lastName;
 	}
-	public void setLast_name(String last_name) throws UserDataException {
+	public void setLastName(String last_name) throws UserDataException {
 		if (last_name.isEmpty() || !last_name.matches("[a-zA-Z]+")) {
 			throw new UserDataException("Error setting last name");
 		}

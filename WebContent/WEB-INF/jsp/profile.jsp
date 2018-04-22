@@ -103,23 +103,24 @@
 			<div class="col-sm-9">
 				
 				<div id="user" style="display: block;">
-					<h1><%= user.getFirst_name()+ " "+ user.getLast_name()%></h1>
+					<h1><%=user.getFirstName()+ " "+ user.getLastName()%></h1>
 					<button style=
 						"float: right; background-color: #4CAF50; border: none; color: white; padding: 15px 32px;"
 						onclick="editUser()"
 					>Edit</button>
 					<ul>
-						<li><%= user.getEmail()%></li>
-						<li><%= user.getGender()%></li>
-						<li><%= user.getCountry()%></li>
-						<li><%= user.getCity()%></li>
-						<li><%= user.getDescription()%></li>
-						<li><%= user.getBirthDate()%></li>
-						<li><%= user.getTelNumber()%></li>
+						<li><%=user.getEmail()%></li>
+						<li><%=user.getGender()%></li>
+						<li><%=user.getCountry()%></li>
+						<li><%=user.getCity()%></li>
+						<li><%=user.getDescription()%></li>
+						<li><%=user.getBirthDate()%></li>
+						<li><%=user.getTelNumber()%></li>
 					</ul>
 				</div>
 				
-				<%Exception e = null; 
+				<%
+				Exception e = null; 
 				if(request.getAttribute("exception") != null) {
 					e = (Exception)request.getAttribute("exception"); %>
 					<p style="color: red"><%= e.getMessage() %></p>
@@ -128,15 +129,15 @@
 				
 				<div id="editUser" style="display: none;">
 					<form action="profile" method="post">
-						First Name<input type="text" name="firstName" value="<%= user.getFirst_name()%>"><br>
-						Last Name<input type="text" name="lastName" value="<%=user.getLast_name()%>"><br>
-						Email<input type="email" name="email" value="<%= user.getEmail()%>"><br>
-						Gender<input type="text" name="gender" value="<%= user.getGender()%>"><br>
-						Country<input type="text" name="country" value="<%= user.getCountry()%>"><br>
-						City<input type="text" name="city" value="<%= user.getCity()%>"><br>
-						Description<input type="text" name="description" value="<%= user.getDescription()%>"><br>
-						Birth Date<input type="date" name="birthDate" value="<%= user.getBirthDate()%>"><br>
-						Telephone Number<input type="tel" name="telNumber" value="<%= user.getTelNumber()%>"><br>
+						First Name<input type="text" name="firstName" value="<%=user.getFirstName()%>"><br>
+						Last Name<input type="text" name="lastName" value="<%=user.getLastName()%>"><br>
+						Email<input type="email" name="email" value="<%=user.getEmail()%>"><br>
+						Gender<input type="text" name="gender" value="<%=user.getGender()%>"><br>
+						Country<input type="text" name="country" value="<%=user.getCountry()%>"><br>
+						City<input type="text" name="city" value="<%=user.getCity()%>"><br>
+						Description<input type="text" name="description" value="<%=user.getDescription()%>"><br>
+						Birth Date<input type="date" name="birthDate" value="<%=user.getBirthDate()%>"><br>
+						Telephone Number<input type="tel" name="telNumber" value="<%=user.getTelNumber()%>"><br>
 						<input type="submit" value="Save">
 					</form>
 					<button style=
@@ -153,24 +154,30 @@
 				
 				<h1>Reviews from Hosts</h1>
 				
-				<% 	if(session.getAttribute("reviewsFromHosts") != null) {
-						ArrayList<Review> reviews = ((ArrayList<Review>)session.getAttribute("reviewsFromHosts")); 
-						for(Review review: reviews) { %>
+				<%
+									if(session.getAttribute("reviewsFromHosts") != null) {
+																		ArrayList<Review> reviews = ((ArrayList<Review>)session.getAttribute("reviewsFromHosts")); 
+																		for(Review review: reviews) {
+								%>
 						
 						<div class="panel panel-default">
-							<div class="panel-heading"><%= review.getReviewerName() %></div>
+							<div class="panel-heading"><%=review.getReviewerName()%></div>
 							<div class="panel-body">
-								<%= review.getReview() %>
+								<%=review.getReview()%>
 							</div>
 							<div class="panel-body">
-								<%= review.getDate() %>
+								<%=review.getDate()%>
 							</div>
 						</div>
 						
-					<% } %>
-				 <% } %>
+					<%
+												}
+											%>
+				 <%
+				 	}
+				 %>
 					
-				<h1>Reviews from Guests of <%= user.getFirst_name()+ " "+ user.getLast_name() %></h1>
+				<h1>Reviews from Guests of <%=user.getFirstName()+ " "+ user.getLastName()%></h1>
 				
 				<% 	if(session.getAttribute("reviewsFromGuests") != null) {
 						ArrayList<Review> reviews = ((ArrayList<Review>)session.getAttribute("reviewsFromGuests")); 

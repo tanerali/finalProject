@@ -63,10 +63,18 @@ public class RegisterServlet extends HttpServlet {
 				throw new UserDataException("You did not specify a photo to upload");
 			}
 
-			user = new User(request.getParameter("firstName"), request.getParameter("lastName"),
-					request.getParameter("email"), request.getParameter("pass1"), request.getParameter("gender"),
-					request.getParameter("city"), request.getParameter("country"), absoluteFilePath,
-					request.getParameter("description"), birthDate, request.getParameter("telNumber"));
+			user = new User(
+					request.getParameter("firstName"), 
+					request.getParameter("lastName"),
+					request.getParameter("email"), 
+					request.getParameter("pass1"), 
+					request.getParameter("gender"),
+					request.getParameter("city"), 
+					request.getParameter("country"), 
+					absoluteFilePath,
+					request.getParameter("description"), 
+					birthDate, 
+					request.getParameter("telNumber"));
 			if (userManager.register(user)) {
 				request.getRequestDispatcher("login.jsp").forward(request, response);
 			}

@@ -32,10 +32,18 @@ public class UploadPostServlet extends HttpServlet {
 			String description = request.getParameter("description");
 			int price = Integer.valueOf(request.getParameter("price"));
 			String type = request.getParameter("type");
-			int hostID = 23; // for the moment !
+			int hostID = currUser.getUserID();
+			
 			// TODO ADD PHOTO
 			try {
-				Post newPost = new Post(title, description, price, LocalDate.now(), Post.Type.getType(type));
+				Post newPost = new Post(
+						title, 
+						description, 
+						price, 
+						LocalDate.now(), 
+						Post.Type.getType(type),
+						hostID);
+				
 				PostManager.instance.insertPost(newPost);
 			} catch (InvalidPostDataExcepetion | SQLException e) {
 				e.printStackTrace();

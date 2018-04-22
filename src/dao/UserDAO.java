@@ -25,7 +25,7 @@ public enum UserDAO {
 
 	public User getUserByEmail(String email, String password) throws SQLException, UserDataException {
 		String sqlQuery = "SELECT "
-				+ "first_name, last_name, email, password, gender, city, "
+				+ "ID, first_name, last_name, email, password, gender, city, "
 				+ "country, photo, description, birth_date, telephone_number "
 				+ "FROM USERS "
 				+ "WHERE email = ?";
@@ -42,6 +42,7 @@ public enum UserDAO {
 					bcrypt.matches(password, resultSet.getString("password"))) {
 
 				user = new User(
+						resultSet.getInt("ID"),
 						resultSet.getString("first_name"),
 						resultSet.getString("last_name"),
 						resultSet.getString("email"),
@@ -65,8 +66,8 @@ public enum UserDAO {
 				"VALUES (?,?,?,?,?,?,?,?,?,?,?);";
 		
 		try (PreparedStatement ps = connection.prepareStatement(sql)) {
-			ps.setString(1, user.getFirst_name());
-			ps.setString(2, user.getLast_name());
+			ps.setString(1, user.getFirstName());
+			ps.setString(2, user.getLastName());
 			ps.setString(3, user.getEmail());
 			ps.setString(4, bcrypt.encode(user.getPassword()));
 			ps.setString(5, user.getGender());
@@ -141,8 +142,8 @@ public enum UserDAO {
 				"WHERE email = ?;";
 		
 		try (PreparedStatement ps = connection.prepareStatement(sql)) {
-			ps.setString(1, user.getFirst_name());
-			ps.setString(2, user.getLast_name());
+			ps.setString(1, user.getFirstName());
+			ps.setString(2, user.getLastName());
 			ps.setString(3, user.getEmail());
 			ps.setString(4, user.getGender());
 			ps.setString(5, user.getCity());
