@@ -237,7 +237,7 @@ ul.dropdown-menu {
     margin: .2em 0 !important;
     font-weight: normal;
     line-height: 1.42857143;
-    color: #FFF !important;
+    color: #000000!important;
     border: none !important;
 }
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
