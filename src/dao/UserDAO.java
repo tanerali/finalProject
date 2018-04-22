@@ -134,5 +134,24 @@ public enum UserDAO {
 		}
 	}
 	
-	
+	public boolean editUserData(User user) throws SQLException {
+		String sql = "UPDATE USERS \n" + 
+				"SET first_name=?, last_name=?, email=?, gender=?, city=?, country=?, "
+				+ "description=?, birth_date=?, telephone_number=? " + 
+				"WHERE ID = (SELECT ID FROM USERS WHERE email = ?);";
+		
+		try (PreparedStatement ps = connection.prepareStatement(sql)) {
+			ps.setString(1, user.getFirst_name());
+			ps.setString(2, user.getLast_name());
+			ps.setString(3, user.getEmail());
+			ps.setString(4, user.getGender());
+			ps.setString(5, user.getCity());
+			ps.setString(6, user.getCountry());
+			ps.setString(7, user.getDescription());
+			ps.setObject(8, user.getBirthDate());
+			ps.setString(9, user.getTelNumber());
+			ps.setString(10, user.getEmail());
+			return ps.executeUpdate() > 0 ? true : false;
+		}
+	}
 }

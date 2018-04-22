@@ -29,4 +29,7 @@ public class UserManager {
 		return reviewsFromGuests;
 	}
 
+	public boolean editUser(User user) throws SQLException {
+		return userDAO.editUserData(user);
+	}
 }

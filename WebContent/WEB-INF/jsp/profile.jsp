@@ -53,19 +53,34 @@
 <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 <![endif]-->
+<script type="text/javascript">
+	function editUser() {
+		document.getElementById("user").style.display = "none";
+		document.getElementById("editUser").style.display = "block";
+	}
+	function cancelEdit() {
+		document.getElementById("user").style.display = "block";
+		document.getElementById("editUser").style.display = "none";
+	}
+	function saveEdit() {
+		
+	}
+	
+</script>
+
 </head>
 
 
 <body>
 
-	<%@ include file="header.jsp" %>
-	<h1>User details</h1>
 	
+	<%@ include file="header.jsp" %>
 
 	<div class="container">
 		<div class="row">
-
+		
 			<div class="col-sm-3">
+				<h1>User details</h1>
 				<div style="width: 240px; height: 240px">
 					<img class="img-responsive" alt="" src="getPic">
 				</div>
@@ -79,23 +94,55 @@
 				</div>
 				<h2>Listings</h2>
 				<ul>
-					<li><img src="images/1.jpg" style="width: 320px; height: 100%"></li>
+					<li><img class="img-resposive" src="images/1.jpg" style="width: 320px; height: 100%"></li>
 				</ul>
 			</div>
 			
 			<% User user = (User)session.getAttribute("user"); %>
 			
 			<div class="col-sm-9">
-				<h1><%= user.getFirst_name()+ " "+ user.getLast_name()%></h1>
-				<ul>
-					<li><%= user.getEmail()%></li>
-					<li><%= user.getGender()%></li>
-					<li><%= user.getCountry()%></li>
-					<li><%= user.getCity()%></li>
-					<li><%= user.getDescription()%></li>
-					<li><%= user.getBirthDate()%></li>
-					<li><%= user.getTelNumber()%></li>
-				</ul>
+				
+				<div id="user" style="display: block;">
+					<h1><%= user.getFirst_name()+ " "+ user.getLast_name()%></h1>
+					<button style=
+						"float: right; background-color: #4CAF50; border: none; color: white; padding: 15px 32px;"
+						onclick="editUser()"
+					>Edit</button>
+					<ul>
+						<li><%= user.getEmail()%></li>
+						<li><%= user.getGender()%></li>
+						<li><%= user.getCountry()%></li>
+						<li><%= user.getCity()%></li>
+						<li><%= user.getDescription()%></li>
+						<li><%= user.getBirthDate()%></li>
+						<li><%= user.getTelNumber()%></li>
+					</ul>
+				</div>
+				
+				<div id="editUser" style="display: none;">
+					<form action="profile" method="post">
+						First Name<input type="text" value="<%= user.getFirst_name()%>"><br>
+						Last Name<input type="text" value="<%=user.getLast_name()%>"><br>
+						Email<input type="email" value="<%= user.getEmail()%>"><br>
+						Gender<input type="text" value="<%= user.getGender()%>"><br>
+						Country<input type="text" value="<%= user.getCountry()%>"><br>
+						City<input type="text" value="<%= user.getCity()%>"><br>
+						Description<input type="text" value="<%= user.getDescription()%>"><br>
+						Birth Date<input type="date" value="<%= user.getBirthDate()%>"><br>
+						Telephone Number<input type="tel" value="<%= user.getTelNumber()%>"><br>
+						<input type="submit" value="Save">
+					</form>
+					<button style=
+						"float: right; background-color: red; border: none; color: white; padding: 15px 32px;"
+						onclick="cancelEdit()"
+					>Cancel</button>
+					
+					<!-- <button style=
+						"float: right; background-color: red; border: none; color: white; padding: 15px 32px;"
+						onclick="saveEdit()"
+					>Save</button> -->
+					
+				</div>
 				
 				<h1>Reviews from Hosts</h1>
 				

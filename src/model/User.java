@@ -19,8 +19,29 @@ public class User {
 	private LocalDate birthDate;
 	private String telNumber;
 	
-	public User(String first_name, 
-				String last_name, 
+	
+	public User(String firstName, 
+				String lastName, 
+				String email, 
+				String gender, 
+				String city, 
+				String country,
+				String description, 
+				LocalDate birthDate, 
+				String telNumber) throws UserDataException {
+		setFirst_name(firstName);
+		setLast_name(lastName);
+		setEmail(email);
+		setGender(gender);
+		setCity(city);
+		setCountry(country);
+		setDescription(description);
+		setBirthDate(birthDate);
+		setTelNumber(telNumber);
+	}
+
+	public User(String firstName, 
+				String lastName, 
 				String email, 
 				String password, 
 				String gender, 
@@ -31,8 +52,8 @@ public class User {
 				LocalDate birthDate, 
 				String telNumber) throws UserDataException {
 		
-		setFirst_name(first_name);
-		setLast_name(last_name);
+		setFirst_name(firstName);
+		setLast_name(lastName);
 		setEmail(email);
 		setPassword(password);
 		setGender(gender);
