@@ -119,6 +119,13 @@
 					</ul>
 				</div>
 				
+				<%Exception e = null; 
+				if(request.getAttribute("exception") != null) {
+					e = (Exception)request.getAttribute("exception"); %>
+					<p style="color: red"><%= e.getMessage() %></p>
+				<% } %>
+				
+				
 				<div id="editUser" style="display: none;">
 					<form action="profile" method="post">
 						First Name<input type="text" name="firstName" value="<%= user.getFirst_name()%>"><br>

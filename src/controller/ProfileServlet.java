@@ -55,6 +55,8 @@ public class ProfileServlet extends HttpServlet {
 				request.getRequestDispatcher("WEB-INF/jsp/profile.jsp").forward(request, response);
 			}
 		} catch (UserDataException e1) {
+			request.setAttribute("exception", e1);
+			request.getRequestDispatcher("WEB-INF/jsp/profile.jsp").forward(request, response);
 			System.out.println("Invalid user data; "+ e1.getMessage());
 		} catch (SQLException e) {
 			System.out.println("Couldnt update record in db; "+ e.getMessage());
