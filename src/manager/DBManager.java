@@ -12,7 +12,7 @@ public enum DBManager {
 	private static final String DB_PORT = "3306";
 	private static final String DB_NAME = "airbnb";
 	private static final String DB_USER = "root";
-	private static final String DB_PASS = "123123";
+	private static final String DB_PASS = "";
 	private static final String URL = "jdbc:mysql://" + DB_IP + ":" + DB_PORT + "/" + DB_NAME;
 
 	private Connection conn;
@@ -26,7 +26,7 @@ public enum DBManager {
 			return;
 		}
 		System.out.println("Driver loaded");
-		
+
 		// create connection
 		try {
 			conn = DriverManager.getConnection(URL, DB_USER, DB_PASS);

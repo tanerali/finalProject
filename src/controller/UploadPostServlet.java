@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import dao.PostDAO;
 import exceptions.InvalidPostDataExcepetion;
 import manager.PostManager;
 import model.Post;
@@ -34,11 +35,10 @@ public class UploadPostServlet extends HttpServlet {
 			System.out.println("not logged");
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		} else {
-
 			System.out.println("logged");
 			// UPLOAD PICTURE FIRST
 
-//			String path = "/home/dnn/UPLOADAIRBNB";
+			// String path = "/home/dnn/UPLOADAIRBNB";
 			String path = "/Users/tanerali/Desktop/ServerUploads";
 			Part filePart = request.getPart("file");
 			String fileName = RegisterServlet.getFileName(filePart);
@@ -61,18 +61,13 @@ public class UploadPostServlet extends HttpServlet {
 			int price = Integer.valueOf(request.getParameter("price"));
 			String type = request.getParameter("type");
 			int hostID = currUser.getUserID();
-			
+
 			// TODO ADD PHOTO
 			try {
-				Post newPost = new Post(
-						title, 
-						description, 
-						price, 
-						LocalDate.now(), 
-						Post.Type.getType(type),
-						hostID);
-				
-				PostManager.instance.insertPost(newPost);
+				Post newPost = new Post(title, description, price, LocalDate.now(), Post.Type.getType(type), hostID);
+				int postID = PostManager.instance.insertPost(newPost);
+				PostDAO.instance.insertImageToPost(absoluteFilePath, postID);
+				System.out.println(postID);
 			} catch (InvalidPostDataExcepetion | SQLException e) {
 				e.printStackTrace();
 			}

@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,8 +56,9 @@ public enum PostDAO {
 		return posts;
 	}
 
-	public void insertPost(Post newPost) throws InvalidPostDataExcepetion, SQLException {
-		PreparedStatement statement = connection.prepareStatement(insertPost);
+	public int insertPost(Post newPost) throws InvalidPostDataExcepetion, SQLException {
+		PreparedStatement statement = connection.prepareStatement(insertPost, Statement.RETURN_GENERATED_KEYS);
+		int postId = 0;
 		try {
 			statement.setInt(1, newPost.getTypeLikeID());
 			statement.setString(2, newPost.getTitle());
@@ -66,10 +66,15 @@ public enum PostDAO {
 			statement.setInt(4, newPost.getHostID());
 			statement.setDate(5, Date.valueOf(newPost.getDateOfPosting()));
 			statement.setString(6, newPost.getDescription());
-			statement.executeUpdate();
+			postId = statement.executeUpdate();
+			ResultSet rs = statement.getGeneratedKeys();
+			if (rs.next()) {
+				postId = rs.getInt(1);
+			}
 		} finally {
 			statement.close();
 		}
+		return postId;
 	}
 
 	public List<Post> getAllPostsByUserID(int id) throws SQLException, InvalidPostDataExcepetion {
@@ -153,17 +158,22 @@ public enum PostDAO {
 	private List<Post> getResult(ResultSet result) throws InvalidPostDataExcepetion, SQLException {
 		List<Post> posts = new ArrayList<Post>();
 		while (result.next()) {
-			Post newPost = new Post(
-					result.getInt("ID"), 
-					result.getString("title"), 
-					result.getString("description"),
-					result.getInt("price"), 
-					result.getDate("date_of_posting").toLocalDate(),
-					Post.Type.getType(result.getInt("type_id")), 
-					result.getInt("host_id"));
+			Post newPost = new Post(result.getInt("ID"), result.getString("title"), result.getString("description"),
+					result.getInt("price"), result.getDate("date_of_posting").toLocalDate(),
+					Post.Type.getType(result.getInt("type_id")), result.getInt("host_id"));
 			posts.add(newPost);
 		}
 		return posts;
+	}
+
+	public void insertImageToPost(String path, int postID) throws SQLException {
+
+		String insertImage = "INSERT INTO POSTS_PHOTOS(post_id,photo) " + "VALUES(?,?);";
+		PreparedStatement statement = connection.prepareStatement(insertImage);
+		statement.setInt(1, postID);
+		statement.setString(2, path);
+		statement.executeUpdate();
+
 	}
 
 	public void removePost(int id) throws SQLException {

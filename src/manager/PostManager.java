@@ -68,7 +68,7 @@ public enum PostManager {
 		return PostDAO.instance.getAllPostsByCountry(country);
 	}
 
-	public void insertPost(Post newPost) throws InvalidPostDataExcepetion, SQLException {
-		PostDAO.instance.insertPost(newPost);
+	public int insertPost(Post newPost) throws InvalidPostDataExcepetion, SQLException {
+		return PostDAO.instance.insertPost(newPost);
 	}
 }
