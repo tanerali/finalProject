@@ -88,7 +88,7 @@
 		<div class="dropdown">
 			<button class="btn btn-primary dropdown-toggle" type="button"
 				data-toggle="dropdown">
-				Type <span class="caret"></span>
+				Type <span class="caret"><br></span>
 			</button>
 			<ul class="dropdown-menu" id="myBtnContainer">
 				<button class="btn active" onclick="filterSelection('all')">

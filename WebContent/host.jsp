@@ -34,54 +34,53 @@
 <body>
 	<!-- banner -->
 	<div id="top" class="banner">
-		
-		<%@ include file="WEB-INF/jsp/header.jsp" %>
-		
-		<div class="w3layouts-banner-slider">
-			<div class="container">
-				<div class="slider">
-					<div class="callbacks_container">
-						<table id="search-table"></table>
-						<div class="inputPost">
-							<table>
-								<tr>
-									<td><input type="text" name="title" id="title"
-										placeholder="Title"></td>
-								</tr>
-								<tr>
-									<td><textarea name="description" id="description"
-											placeholder="description"></textarea></td>
-								</tr>
 
-								<tr>
-									<td><input type="number" name="price" id="price"
-										placeholder="Price"></td>
-								</tr>
+		<%@ include file="WEB-INF/jsp/header.jsp"%>
+		<div class="container">
+			<div class="slider">
+				<div class="callbacks_container">
+					<div class="inputPost">
+						<table align="center"
+							style="border-collapse: separate; border-spacing: 0.5em; margin-top: 4%;">
+							<tr>
+								<td><input class="form-control" type="text" name="title"
+									id="title" placeholder="Title"></td>
+							</tr>
+							<tr>
+								<td><textarea rows="10" cols="135" class="form-control"
+										name="description" id="description" placeholder="description"></textarea></td>
+							</tr>
 
-								<tr>
-									<td><select name="type" id="type">
-											<option id="opt1" value="Hotel">Hotel</option>
-											<option id="opt2" value="Hotel">Apartment</option>
-											<option id="opt3" value="Hotel">House</option>
-											<option id="opt4" value="Hotel">Cottage</option>
-									</select></td>
-								</tr>
-								<tr>
-									<td>
-										<form method="post" action="upload"
-											enctype="multipart/form-data">
-											<input type="file" id="myFileField" accept="image/*"
-												name="file"><br>
-										</form>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<button type="button" onclick="upload();">Upload</button>
-									</td>
-								</tr>
-							</table>
-						</div>
+							<tr>
+								<td><input class="form-control" type="number" name="price"
+									id="price" placeholder="Price"></td>
+							</tr>
+
+							<tr>
+								<td><select class="form-control" name="type" id="type">
+										<option id="opt1" value="Hotel">Hotel</option>
+										<option id="opt2" value="Hotel">Apartment</option>
+										<option id="opt3" value="Hotel">House</option>
+										<option id="opt4" value="Hotel">Cottage</option>
+								</select></td>
+							</tr>
+							<tr>
+								<td>
+									<form method="post" action="upload"
+										enctype="multipart/form-data">
+										<input style="display: none;" class="form-control" type="file"
+											id="myFileField" accept="image/*" name="file"><br>
+										<div id="fc">ADD A PICTURE</div>
+										<div id="name"></div>
+									</form>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<button class="form-control" type="button" onclick="upload();">Upload</button>
+								</td>
+							</tr>
+						</table>
 					</div>
 				</div>
 			</div>
@@ -128,7 +127,6 @@
 
 			req.open("Post", "upload");
 			req.onreadystatechange = proccessUpload;
-
 			var formData = new FormData();
 			formData.append("file",
 					document.getElementById("myFileField").files[0]);
@@ -142,7 +140,19 @@
 		function proccessUpload() {
 			alert("Arede");
 		}
+		$('#fc').click(function() {
+			$('#myFileField').click();
+		});
+
+		$('#myFileField').change(
+				function() {
+					$('#name').html(
+							function() {
+								var fakePath = $('#myFileField').attr('value')
+										.toString().split('\\');
+								return fakePath[fakePath.length - 1];
+							});
+				});
 	</script>
 </body>
 </html>
-	

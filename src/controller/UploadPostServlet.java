@@ -38,8 +38,8 @@ public class UploadPostServlet extends HttpServlet {
 			System.out.println("logged");
 			// UPLOAD PICTURE FIRST
 
-			// String path = "/home/dnn/UPLOADAIRBNB";
-			String path = "/Users/tanerali/Desktop/ServerUploads";
+			String path = "/home/dnn/UPLOADAIRBNB";
+			// String path = "/Users/tanerali/Desktop/ServerUploads";
 			Part filePart = request.getPart("file");
 			String fileName = RegisterServlet.getFileName(filePart);
 			String absoluteFilePath = path + File.separator + fileName;
