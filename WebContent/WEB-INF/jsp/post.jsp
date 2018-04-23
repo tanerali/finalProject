@@ -46,7 +46,7 @@
 			<div class="container">
 				<div class="agileits-single-img">
 					<!--<img src="images/s1.jpg" alt="" /-->
-					- <img id="placeImage" src="images/place.jpg">
+					<img id="placeImage" src="getThumbnail?id=<%= currPost.getPostID() %>">
 					<h4><%=currPost.getTitle()%></h4>
 					<div class="agileinfo-single-icons">
 						<ul>

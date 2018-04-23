@@ -24,8 +24,6 @@ public class ExploreServlet extends HttpServlet {
 		try {
 			ArrayList<Post> posts = (ArrayList<Post>) postManager.getAllPosts();
 			
-			System.out.println(posts.get(1).getType());
-			
 			if (posts != null) {
 				req.setAttribute("posts", posts);
 				req.getRequestDispatcher("explore.jsp").forward(req, resp);
