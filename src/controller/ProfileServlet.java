@@ -2,7 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDate;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,55 +12,36 @@ import javax.servlet.http.HttpServletResponse;
 
 import exceptions.UserDataException;
 import manager.UserManager;
+import model.Review;
 import model.User;
 
 @WebServlet("/profile")
 public class ProfileServlet extends HttpServlet {
 	private UserManager userManager = UserManager.instance;
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User user = (User)request.getSession().getAttribute("user");
-		
-		if (user != null) {
-			request.getRequestDispatcher("WEB-INF/jsp/profile.jsp").forward(request, response);
-		}
-		else {
-			response.sendRedirect("login.jsp");
-		}
-	}
-	
+
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User user = (User)request.getSession().getAttribute("user");
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		int userID = 0;
+		if (req.getParameter("id") != null) {
+			userID = Integer.parseInt(req.getParameter("id"));
+		}
 		
 		try {
-			LocalDate birthDate = null;
-			try {
-				 birthDate = LocalDate.parse(request.getParameter("birthDate"));
-			} catch (Exception e) {
-				throw new UserDataException("Invalid birth date entered");
-			}
-			if (user != null) {
-				user.setFirstName(request.getParameter("firstName"));
-				user.setLastName(request.getParameter("lastName"));
-				user.setEmail(request.getParameter("email"));
-				user.setGender(request.getParameter("gender"));
-				user.setCity(request.getParameter("city"));
-				user.setCountry(request.getParameter("country"));
-				user.setDescription(request.getParameter("description"));
-				user.setBirthDate(birthDate);
-				user.setTelNumber(request.getParameter("telNumber"));
-							
-				userManager.editUser(user);
-				request.getRequestDispatcher("WEB-INF/jsp/profile.jsp").forward(request, response);
-			}
-		} catch (UserDataException e1) {
-			request.setAttribute("exception", e1);
-			request.getRequestDispatcher("WEB-INF/jsp/profile.jsp").forward(request, response);
-			System.out.println("Invalid user data; "+ e1.getMessage());
+			User user = userManager.getUserByID(userID);
+			ArrayList<Review> reviewsFromHosts = userManager.getReviewsFromHosts(user.getEmail());
+			ArrayList<Review> reviewsFromGuests = userManager.getReviewsFromGuests(user.getEmail());
+			
+			req.setAttribute("user", user);
+			req.setAttribute("reviewsFromHosts", reviewsFromHosts);
+			req.setAttribute("reviewsFromGuests", reviewsFromGuests);
+			
+			req.getRequestDispatcher("profile.jsp").forward(req, resp);
 		} catch (SQLException e) {
-			System.out.println("Couldnt update record in db; "+ e.getMessage());
+			// TODO 
+			e.printStackTrace();
+		} catch (UserDataException e) {
+			// TODO 
+			e.printStackTrace();
 		}
-		
 	}
 }

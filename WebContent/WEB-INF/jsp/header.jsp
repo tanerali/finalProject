@@ -51,7 +51,7 @@
 								} else {
 							%>
 							<li><a href="host.jsp">Host</a></li>
-							<li><a href="profile">Profile</a></li>
+							<li><a href="personalProfile">Profile</a></li>
 							<li><a href="logout">Logout</a></li>
 							<%
 								}

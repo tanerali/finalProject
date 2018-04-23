@@ -8,25 +8,22 @@ public class Comment {
 
 	private int commentID;
 	private int userID;
+	private String fullName;
 	private int postID;
-	private String user;
-	private String Content;
+	private String content;
 	private LocalDate date;
 
-	public Comment(int postID, int userID, String user, LocalDate date, String content)
-			throws InvalidCommentIDException {
-		this.setPostID(postID);
-		this.setUserID(userID);
-		this.setUser(user);
-		this.setDate(date);
-		this.setContent(content);
+	public Comment(int commentID, int userID, String fullName, int postID, String content, LocalDate date) {
+		this.commentID = commentID;
+		this.userID = userID;
+		this.fullName = fullName;
+		this.postID = postID;
+		this.content = content;
+		this.date = date;
 	}
 
-	public Comment(int commentID, int postID, int userID, String user, LocalDate date, String content)
-			throws InvalidCommentIDException {
-		this(postID, userID, user, date, content);
-		this.commentID = commentID;
-
+	public String getFullName() {
+		return fullName;
 	}
 
 	public int getCommentID() {
@@ -65,14 +62,6 @@ public class Comment {
 		}
 	}
 
-	public String getUser() {
-		return user;
-	}
-
-	public void setUser(String user) {
-		this.user = user;
-	}
-
 	public LocalDate getDate() {
 		return date;
 	}
@@ -82,11 +71,11 @@ public class Comment {
 	}
 
 	public String getContent() {
-		return Content;
+		return content;
 	}
 
 	public void setContent(String content) {
-		Content = content;
+		this.content = content;
 	}
 
 }

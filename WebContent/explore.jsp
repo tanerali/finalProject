@@ -113,7 +113,7 @@
 
 			<div class="col-md-4 filterDiv <%=post.getType()%>">
 				<div class="thumbnail">
-					<a href="post?id=<%=post.getPostID()%>" target="_blank"> <img
+					<a href="post?id=<%=post.getPostID()%>"> <img
 						src="getThumbnail?id=<%=post.getPostID()%>" alt=""
 						style="width: 100%">
 						<div class="caption">

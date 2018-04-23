@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
 					request.getSession().setAttribute("reviewsFromHosts", reviewsFromHosts);
 					request.getSession().setAttribute("reviewsFromGuests", reviewsFromGuests);
 				}
-				request.getRequestDispatcher("WEB-INF/jsp/profile.jsp").forward(request, response);
+				request.getRequestDispatcher("WEB-INF/jsp/personalProfile.jsp").forward(request, response);
 			} else {
 				request.setAttribute("wrong_password", new Object());
 				request.getRequestDispatcher("login.jsp").forward(request, response);

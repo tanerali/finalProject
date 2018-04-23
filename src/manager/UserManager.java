@@ -34,8 +34,12 @@ public enum UserManager {
 		return userDAO.editUserData(user);
 	}
 
-	public User getUserByID(int hostID) throws SQLException, UserDataException {
-		return userDAO.getUserByID(hostID);
+	public User getUserByID(int userID) throws SQLException, UserDataException {
+		return userDAO.getUserByID(userID);
+	}
+
+	public String getPhoto(int userID) throws SQLException {
+		return userDAO.getPhotoPathById(userID);
 	}
 	
 	

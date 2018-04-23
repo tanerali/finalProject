@@ -1,3 +1,5 @@
+<%@page import="model.Comment"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="model.Post"%>
@@ -35,12 +37,8 @@
 </head>
 <body>
 
-	<!-- banner -->
-	<div class="banner">
-
 		<%@ include file="header.jsp"%>
 
-		<!-- //banner -->
 		<!-- single -->
 		<div class="single">
 			<div class="container">
@@ -50,85 +48,55 @@
 					<h4><%=currPost.getTitle()%></h4>
 					<div class="agileinfo-single-icons">
 						<ul>
-							<li><a href="#"><i class="fa fa-user" aria-hidden="true"></i>
-									<span><%=postUser.getFirstName()%> <%=postUser.getLastName()%></span></a></li>
-							<li><i class="fa fa-calendar" aria-hidden="true"></i><span><%=currPost.getDateOfPosting().toString()%></span></li>
+							<li><a href="profile?id=<%= postUser.getUserID() %>"><i class="fa fa-user" aria-hidden="true"></i>
+									<span>Host: <%=postUser.getFirstName()%> <%=postUser.getLastName()%></span></a></li>
+							<li><i class="fa fa-calendar" aria-hidden="true"></i><span>Date of posting: <%=currPost.getDateOfPosting().toString()%></span></li>
 							<li><a href="#"><i class="fa fa-heart"
 									aria-hidden="true"></i><span><%=currPost.getRating()%>/10
 										Rating</span></a></li>
 						</ul>
 					</div>
+					<h3>Description</h3>
 					<p><%=currPost.getDescription()%></p>
 					<p>
 						Price: <b><%=currPost.getPrice()%></b>
 					</p>
 				</div>
+				
+				<%
+				
+				ArrayList<Comment> comments = new ArrayList();
+				if(request.getAttribute("comments") != null) {
+					comments = (ArrayList<Comment>)request.getAttribute("comments");
+				}
+				%>
+				
 				<!-- comments -->
 				<div class="agileits_three_comments">
-					<h3>Comments</h3>
-					<div class="agileits_three_comment_grid">
-						<div class="agileits_tom">
-							<img src="images/t2.jpg" alt=" " class="img-responsive">
-						</div>
-						<div class="agileits_tom_right">
-							<div class="hardy">
-								<h4>David Son</h4>
-								<p>21 June 2016</p>
+						<h3>Comments</h3>
+				<% for(Comment comment: comments) { %>
+					
+						<div class="agileits_three_comment_grid">
+							<div class="agileits_tom">
+								<a href="profile?id=<%= comment.getUserID() %>"><img src="getPic?id=<%= comment.getUserID() %>" class="img-responsive"></a>
 							</div>
-							<div class="reply">
-								<a href="#">Reply</a>
-							</div>
-							<div class="clearfix"></div>
-							<p class="lorem">There are many variations of passages of
-								Lorem Ipsum available, but the majority have suffered alteration
-								in some form, by injected humour, or randomised words which
-								don't.</p>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-					<div
-						class="agileits_three_comment_grid agileits_three_comment_grid1">
-						<div class="agileits_tom">
-							<img src="images/t3.jpg" alt=" " class="img-responsive">
-						</div>
-						<div class="agileits_tom_right">
-							<div class="hardy">
-								<h4>Shane Watson</h4>
-								<p>21 June 2018</p>
-							</div>
-							<div class="reply">
-								<a href="#">Reply</a>
+							<div class="agileits_tom_right">
+								<div class="hardy">
+									<a href="profile?id=<%= comment.getUserID() %>"><h4><%= comment.getFullName() %></h4></a>
+									<p><%= comment.getDate() %></p>
+								</div>
+								<div class="clearfix"></div>
+								<p class="lorem"><%= comment.getContent() %></p>
 							</div>
 							<div class="clearfix"></div>
-							<p class="lorem">There are many variations of passages of
-								Lorem Ipsum available, but the majority have suffered alteration
-								in some form, by injected humour, or randomised words which
-								don't.</p>
 						</div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="agileits_three_comment_grid">
-						<div class="agileits_tom">
-							<img src="images/t4.jpg" alt=" " class="img-responsive">
-						</div>
-						<div class="agileits_tom_right">
-							<div class="hardy">
-								<h4>Steve Smith</h4>
-								<p>21 June 2018</p>
-							</div>
-							<div class="reply">
-								<a href="#">Reply</a>
-							</div>
-							<div class="clearfix"></div>
-							<p class="lorem">There are many variations of passages of
-								lorem ipsum available, but the majority have suffered alteration
-								in some form, by injected humour, or randomised words which
-								don't.</p>
-						</div>
-						<div class="clearfix"></div>
-					</div>
+					
+				<% } %>
 				</div>
+				
 				<!-- //comments -->
+				
+				
 				<!-- leave-comments -->
 				<div class="w3_leave_comment">
 					<h3>Leave your comment</h3>
@@ -138,7 +106,30 @@
 					</form>
 				</div>
 				<!-- //leave-comments -->
+				
+				
 			</div>
 		</div>
+		
+		<script type="text/javascript">
+			function upload() {
+		
+				req.open("Post", "upload");
+				req.onreadystatechange = proccessUpload;
+		
+				var formData = new FormData();
+				formData.append("file",
+						document.getElementById("myFileField").files[0]);
+				formData.append("title", document.getElementById("title").value);
+				formData.append("description", document
+						.getElementById("description").value);
+				formData.append("price", document.getElementById("price").value);
+				formData.append("type", document.getElementById("type").value);
+				req.send(formData);
+			}
+			function proccessUpload() {
+				alert("Arede");
+			}
+		</script>
 </body>
 </html>

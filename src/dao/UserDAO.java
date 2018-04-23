@@ -143,4 +143,16 @@ public enum UserDAO {
 			return user;
 		}
 	}
+
+	public String getPhotoPathById(int userID) throws SQLException {
+		String sql = "SELECT photo FROM USERS WHERE ID=?;";
+		try(PreparedStatement ps = connection.prepareStatement(sql)) {
+			ps.setInt(1, userID);
+			ResultSet resultSet = ps.executeQuery();
+			if (resultSet.next()) {
+				return resultSet.getString("photo");
+			}
+			return null;
+		}
+	}
 }
