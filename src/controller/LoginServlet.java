@@ -17,7 +17,7 @@ import model.User;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-	private UserManager userManager = new UserManager();
+	private UserManager userManager = UserManager.instance;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

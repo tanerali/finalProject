@@ -24,7 +24,7 @@ import model.User;
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 10)
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
-	private UserManager userManager = new UserManager();
+	private UserManager userManager = UserManager.instance;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

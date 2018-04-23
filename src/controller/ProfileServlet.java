@@ -16,7 +16,7 @@ import model.User;
 
 @WebServlet("/profile")
 public class ProfileServlet extends HttpServlet {
-	private UserManager userManager = new UserManager();
+	private UserManager userManager = UserManager.instance;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User)request.getSession().getAttribute("user");

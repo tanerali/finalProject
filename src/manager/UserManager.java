@@ -8,7 +8,8 @@ import exceptions.UserDataException;
 import model.Review;
 import model.User;
 
-public class UserManager {
+public enum UserManager {
+	instance;
 	private UserDAO userDAO = UserDAO.INSTANCE;
 	
 	public User login(String email, String password) throws SQLException, UserDataException {
@@ -32,4 +33,10 @@ public class UserManager {
 	public boolean editUser(User user) throws SQLException {
 		return userDAO.editUserData(user);
 	}
+
+	public User getUserByID(int hostID) throws SQLException, UserDataException {
+		return userDAO.getUserByID(hostID);
+	}
+	
+	
 }
