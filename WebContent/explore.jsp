@@ -1,3 +1,6 @@
+<%@page import="java.util.Map"%>
+<%@page import="java.util.TreeMap"%>
+<%@page import="java.util.TreeSet"%>
 <%@page import="model.Post"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -84,11 +87,12 @@
 
 	<div class="container">
 		<h2>Explore All The Great Places You Can Stay</h2>
-
-		<div class="dropdown">
+		
+		<!-- TYPE dropdown menu -->
+		<div class="dropdown" style="display: inline;">
 			<button class="btn btn-primary dropdown-toggle" type="button"
 				data-toggle="dropdown">
-				Type <span class="caret"></span>
+				Type <span class="caret"><br></span>
 			</button>
 			<ul class="dropdown-menu" id="myBtnContainer">
 				<button class="btn active" onclick="filterSelection('all')">
@@ -104,14 +108,36 @@
 					Cottage</button>
 			</ul>
 		</div>
-
+		
+		<!-- cities dropdown menu -->
+		<div class="dropdown" style="display: inline;">
+			<button class="btn btn-primary dropdown-toggle" type="button"
+				data-toggle="dropdown">
+				Countries <span class="caret"><br></span>
+			</button>
+			
+			<%			
+			Map<String, TreeSet<String>> locations = (Map)request.getAttribute("locations");
+			%>
+			<ul class="dropdown-menu">
+				<button class="btn active" onclick="filterSelection('all')">
+					Show all</button>
+				<br>
+				<% for (String country: locations.keySet()) { %>
+					<button class="btn" onclick="filterSelection('<%= country %>')">
+						<%= country %></button>
+				<% } %>
+			</ul>
+		</div>
+		
+		<!-- POSTS -->
 		<div class="row" id="posts">
 			<%
 				if (posts != null) {
 					for (Post post : posts) {
 			%>
 
-			<div class="col-md-4 filterDiv <%=post.getType()%>">
+			<div class="col-md-4 filterDiv <%=post.getType()%> <%-- <%=post.getCity()%> --%>">
 				<div class="thumbnail">
 					<a href="post?id=<%=post.getPostID()%>"> <img
 						src="getThumbnail?id=<%=post.getPostID()%>" alt=""
@@ -128,17 +154,13 @@
 				</div>
 			</div>
 
-			<%
-				}
-				}
-			%>
+				
+				<% } %>
+			<% } %>
+			
 		</div>
 
-
 	</div>
-
-
-
 	<script>
 		var req = new XMLHttpRequest();
 		function openSearch() {
@@ -152,7 +174,12 @@
 			//true means - async requests
 			req.open("Get", "search?search="
 					+ document.getElementById("search").value, true);
-			req.onreadystatechange = proccesSearch;
+			req.onreadystatechange = function() {
+				if (req.readyState == 4 && req.status == 200) {
+					document.getElementById("body").innerHTML=req.responseText;
+				}
+			};
+
 			req.send(null);
 		}
 		function proccesSearch() {

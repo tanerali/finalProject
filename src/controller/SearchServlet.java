@@ -23,10 +23,15 @@ public class SearchServlet extends HttpServlet {
 		System.out.println(search);
 		if (search != null) {
 			List<Post> result = PostManager.instance.searchPost(search);
-			String resultJSON = new Gson().toJson(result);
-			response.setContentType("text/html");
-			response.getWriter().write(resultJSON);
-			System.out.println(resultJSON);
+			if (!result.isEmpty()) {
+				System.out.println("not empty");
+				request.setAttribute("posts", result);
+				request.getRequestDispatcher("explore.jsp").forward(request, response);
+			}
+			// String resultJSON = new Gson().toJson(result);
+			// response.setContentType("text/html");
+			// response.getWriter().write(resultJSON);
+			// System.out.println(resultJSON);
 		}
 	}
 

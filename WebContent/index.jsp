@@ -12,7 +12,13 @@
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript">
 	
+	
+	
+	
 	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+
+
+
 
 </script>
 <!-- bootstrap-css -->
@@ -54,11 +60,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
 
 
-<body>
+<body id="body">
 	<!-- banner -->
 	<div class="banner1">
 
-		<%@ include file="WEB-INF/jsp/header.jsp" %>
+		<%@ include file="WEB-INF/jsp/header.jsp"%>
 
 
 		<div class="w3layouts-banner-slider">
@@ -85,27 +91,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<script type="text/javascript" src="js/move-top.js"></script>
 	<script type="text/javascript" src="js/easing.js"></script>
 
-	<!-- here stars scrolling icon -->
-	<script type="text/javascript">
-		$(document).ready(function() {
-			/*
-				var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear'
-				};
-			 */
-
-			$().UItoTop({
-				easingType : 'easeOutQuart'
-			});
-
-		});
-	</script>
-
-
-
 	<script>
 		var req = new XMLHttpRequest();
 		function openSearch() {
@@ -119,39 +104,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			//true means - async requests
 			req.open("Get", "search?search="
 					+ document.getElementById("search").value, true);
-			req.onreadystatechange = proccesSearch;
+			req.onreadystatechange = function() {
+				if (req.readyState == 4 && req.status == 200) {
+					  window.location = "explore.jsp";
+				}
+			};
+
 			req.send(null);
 		}
-		function proccesSearch() {
-			if (req.readyState == 4 && req.status == 200) {
-				closeSearch();
-				var jsonSearch = eval('(' + req.responseText + ')');
-				var table = document.getElementById("search-table");
-				table.innerHTML = "";
-				var headRow = table.insertRow(0);
-				var headCell = headRow.insertCell(0);
-				var results = jsonSearch;
-				var i = 0;
-				while (i < results.length) {
-					row = table.insertRow(i + 1);
-					cell = row.insertCell(0);
-					cell.innerHTML = results[i++].title;
-				}
-
-			}
-
-		}
-	</script>
-	<!-- //here ends scrolling icon -->
-
-	<script src="js/jarallax.js"></script>
-	<script type="text/javascript">
-		/* init Jarallax */
-		$('.jarallax').jarallax({
-			speed : 0.5,
-			imgWidth : 1366,
-			imgHeight : 768
-		})
 	</script>
 </body>
 </html>

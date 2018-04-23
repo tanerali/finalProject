@@ -37,8 +37,6 @@ public class PostServlet extends HttpServlet {
 		Post currPost = postManager.getPostsByID().get(postID);
 		ArrayList<Comment> comments = new ArrayList<>();
 		
-		System.out.println(currPost.toString());
-		
 		if (currPost != null) {
 			try {
 				hostUser = userManager.getUserByID(currPost.getHostID());
@@ -52,8 +50,6 @@ public class PostServlet extends HttpServlet {
 			request.setAttribute("post", currPost);
 			request.setAttribute("comments", comments);
 			request.getRequestDispatcher("WEB-INF/jsp/post.jsp").forward(request, response);
-		} else {
-			request.getRequestDispatcher("explore").forward(request, response);
 		}
 	}
 }

@@ -4,7 +4,7 @@
 	pageEncoding="UTF-8"%>
 <%@page import="model.Post"%>
 <%@page import="model.User"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <%
@@ -43,7 +43,8 @@
 		<div class="single">
 			<div class="container">
 				<div class="agileits-single-img">
-					<!--<img src="images/s1.jpg" alt="" /-->
+					
+					<!-- POST'S PICTURE -->
 					<img id="placeImage" src="getThumbnail?id=<%= currPost.getPostID() %>">
 					<h4><%=currPost.getTitle()%></h4>
 					<div class="agileinfo-single-icons">
@@ -55,6 +56,22 @@
 									aria-hidden="true"></i><span><%=currPost.getRating()%>/10
 										Rating</span></a></li>
 						</ul>
+						
+						<!-- BOOK -->
+						<% if(session.getAttribute("user") != null) { %>
+							<!-- BOOK BUTTON -->
+							<form action="book" method="post">
+								From<input type="date" name="dateFrom" required="required"><br>
+								To<input type="date" name="dateTo" required="required"><br>
+								
+								<input type="hidden" name="postID" value="<%= currPost.getPostID() %>">
+								<input type="submit" value="Request Booking" 
+									style="background-color: #4CAF50; 
+									border: none; color: white; padding: 15px 32px;">
+							</form>
+							
+						<% } %>
+						
 					</div>
 					<h3>Description</h3>
 					<p><%=currPost.getDescription()%></p>
@@ -78,7 +95,9 @@
 					
 						<div class="agileits_three_comment_grid">
 							<div class="agileits_tom">
-								<a href="profile?id=<%= comment.getUserID() %>"><img src="getPic?id=<%= comment.getUserID() %>" class="img-responsive"></a>
+								<a href="profile?id=<%= comment.getUserID() %>">
+									<img src="getPic?id=<%= comment.getUserID() %>" class="img-responsive"></a>
+								<div class=""></div>
 							</div>
 							<div class="agileits_tom_right">
 								<div class="hardy">
@@ -88,23 +107,37 @@
 								<div class="clearfix"></div>
 								<p class="lorem"><%= comment.getContent() %></p>
 							</div>
-							<div class="clearfix"></div>
+							<div class="clearfix">
+							<% if(session.getAttribute("user") != null) { %>
+								<form action="comment" method="delete">
+									<input type="hidden" name="commentID" value="<%= comment.getCommentID()%>">
+									<input type="hidden" name="postID" value="<%= currPost.getPostID() %>">
+									<input type="submit" value="DELETE COMMENT" 
+											style="float: right; background-color: #4CAF50; 
+											border: none; color: white; padding: 15px 32px;">
+									<!-- <button onclick="deleteComment()" >DELETE COMMENT</button> -->
+								</form>
+							<% } %>
+							</div>
 						</div>
 					
 				<% } %>
 				</div>
-				
 				<!-- //comments -->
 				
 				
 				<!-- leave-comments -->
-				<div class="w3_leave_comment">
-					<h3>Leave your comment</h3>
-					<form action="#" method="post">
-						<textarea placeholder="Message" name="Message" required=""></textarea>
-						<input type="submit" value="Send">
-					</form>
-				</div>
+				<% if(session.getAttribute("user") != null) { %>
+					<div class="w3_leave_comment">
+						<h3>Leave your comment</h3>
+						<form action="comment" method="post">
+							<textarea placeholder="Comment" name="comment" required></textarea>
+							<input type="hidden" name="postID" value="<%= currPost.getPostID() %>">
+							<input type="submit" value="Send">
+						</form>
+					</div>
+				<% } %>
+				
 				<!-- //leave-comments -->
 				
 				
@@ -112,23 +145,12 @@
 		</div>
 		
 		<script type="text/javascript">
-			function upload() {
-		
-				req.open("Post", "upload");
-				req.onreadystatechange = proccessUpload;
-		
-				var formData = new FormData();
-				formData.append("file",
-						document.getElementById("myFileField").files[0]);
-				formData.append("title", document.getElementById("title").value);
-				formData.append("description", document
-						.getElementById("description").value);
-				formData.append("price", document.getElementById("price").value);
-				formData.append("type", document.getElementById("type").value);
-				req.send(formData);
+			function postComment() {
+				 
 			}
-			function proccessUpload() {
-				alert("Arede");
+			
+			function deleteComment() {
+				
 			}
 		</script>
 </body>

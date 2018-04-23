@@ -21,14 +21,6 @@ public enum PostManager {
 	// postID -> Post
 	private Map<Integer, Post> postsByID;
 
-	public Map<Integer, List<Post>> getPostsByUsers() {
-		return postsByUsers;
-	}
-
-	public Map<Integer, Post> getPostsByID() {
-		return postsByID;
-	}
-
 	private PostManager() {
 
 		postsByUsers = new ConcurrentHashMap<>();
@@ -56,6 +48,22 @@ public enum PostManager {
 		}
 	}
 
+	public Map<Integer, List<Post>> getPostsByUsers() {
+		return Collections.unmodifiableMap(postsByUsers);
+	}
+
+	public Map<Integer, Post> getPostsByID() {
+		return Collections.unmodifiableMap(postsByID);
+	}
+	
+	public void addPostToCache(Post post) {
+		postsByID.put(post.getPostID(), post);
+		if (!postsByUsers.containsKey(post.getHostID())) {
+			postsByUsers.put(post.getHostID(), new ArrayList<>());
+		}
+		postsByUsers.get(post.getHostID()).add(post);
+	}
+	
 	public List<Post> searchPost(String search) {
 		ArrayList<Post> posts = new ArrayList<Post>();
 		for (int id : postsByID.keySet()) {
@@ -79,7 +87,10 @@ public enum PostManager {
 	}
 
 	public int insertPost(Post newPost) throws InvalidPostDataExcepetion, SQLException {
-		return PostDAO.instance.insertPost(newPost);
+		int postID = PostDAO.instance.insertPost(newPost);
+		newPost.setPostID(postID);
+		addPostToCache(newPost);
+		return postID;
 	}
 
 	public String getThumbnail(int postID) throws SQLException {

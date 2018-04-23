@@ -14,6 +14,14 @@ public enum CommentManager {
 	public ArrayList<Comment> getCommentsForPost(int postID) throws SQLException {
 		return commentDAO.getCommentsByPostId(postID);
 	}
+
+	public boolean addCommentToPost(Comment comment) throws SQLException {
+		return commentDAO.addCommentToPost(comment);
+	}
+
+	public boolean deleteComment(int commentID) throws SQLException {
+		return commentDAO.deleteComment(commentID);
+	}
 	
 	
 }

@@ -13,13 +13,17 @@ public class Comment {
 	private String content;
 	private LocalDate date;
 
-	public Comment(int commentID, int userID, String fullName, int postID, String content, LocalDate date) {
-		this.commentID = commentID;
+	public Comment(int userID, String fullName, int postID, String content, LocalDate date) {
 		this.userID = userID;
 		this.fullName = fullName;
 		this.postID = postID;
 		this.content = content;
 		this.date = date;
+	}
+
+	public Comment(int commentID, int userID, String fullName, int postID, String content, LocalDate date) {
+		this(userID, fullName, postID, content, date);
+		this.commentID = commentID;
 	}
 
 	public String getFullName() {

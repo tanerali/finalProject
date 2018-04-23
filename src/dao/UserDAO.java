@@ -24,8 +24,10 @@ public enum UserDAO {
 	}
 
 	public User getUserByEmail(String email, String password) throws SQLException, UserDataException {
-		String sqlQuery = "SELECT " + "ID, first_name, last_name, email, password, gender, city, "
-				+ "country, photo, description, birth_date, telephone_number " + "FROM USERS " + "WHERE email = ?";
+		String sqlQuery = "SELECT ID, first_name, last_name, email, password, gender, city, "
+				+ "country, photo, description, birth_date, telephone_number "
+				+ "FROM USERS "
+				+ "WHERE email = ?";
 
 		try (PreparedStatement ps = connection.prepareStatement(sqlQuery)) {
 			ps.setString(1, email);
@@ -38,19 +40,28 @@ public enum UserDAO {
 			// and his password corresponds to the encoded password in the DB
 					bcrypt.matches(password, resultSet.getString("password"))) {
 
-				user = new User(resultSet.getInt("ID"), resultSet.getString("first_name"),
-						resultSet.getString("last_name"), resultSet.getString("email"), resultSet.getString("password"),
-						resultSet.getString("gender"), resultSet.getString("city"), resultSet.getString("country"),
-						resultSet.getString("photo"), resultSet.getString("description"),
-						LocalDate.parse(resultSet.getString("birth_date")), resultSet.getString("telephone_number"));
+				user = new User(
+						resultSet.getInt("ID"), 
+						resultSet.getString("first_name"),
+						resultSet.getString("last_name"), 
+						resultSet.getString("email"), 
+						resultSet.getString("password"),
+						resultSet.getString("gender"), 
+						resultSet.getString("city"), 
+						resultSet.getString("country"),
+						resultSet.getString("photo"), 
+						resultSet.getString("description"),
+						LocalDate.parse(resultSet.getString("birth_date")), 
+						resultSet.getString("telephone_number"));
 			}
 			return user;
 		}
 	}
 
 	public boolean addUser(User user) throws SQLException {
-		String sql = "INSERT INTO USERS " + "(first_name, last_name, email, password, gender, city, "
-				+ "country, photo, description, birth_date, telephone_number) " + "VALUES (?,?,?,?,?,?,?,?,?,?,?);";
+		String sql = "INSERT INTO USERS (first_name, last_name, email, password, gender, city, "
+				+ "country, photo, description, birth_date, telephone_number) "
+				+ "VALUES (?,?,?,?,?,?,?,?,?,?,?);";
 
 		try (PreparedStatement ps = connection.prepareStatement(sql)) {
 			ps.setString(1, user.getFirstName());
@@ -72,16 +83,21 @@ public enum UserDAO {
 	public ArrayList<Review> getReviewsFromHostsByEmail(String email) throws SQLException {
 		String sql = "SELECT CONCAT(u.first_name, \" \", u.last_name) as Reviewer, "
 				+ "CONCAT(u2.first_name, \" \", u2.last_name) as Reviewed, cr.content, cr.date "
-				+ "FROM CLIENT_REVIEWS cr " + "JOIN USERS u " + "ON cr.reviewer_id = u.ID " + "JOIN USERS u2 "
-				+ "ON cr.reviewed_id = u2.ID " + "WHERE u2.email = ?";
+				+ "FROM CLIENT_REVIEWS cr "
+				+ "JOIN USERS u ON cr.reviewer_id = u.ID "
+				+ "JOIN USERS u2 ON cr.reviewed_id = u2.ID "
+				+ "WHERE u2.email = ?";
 
 		ArrayList<Review> reviewsFromHosts = new ArrayList<>();
 		try (PreparedStatement ps = connection.prepareStatement(sql)) {
 			ps.setString(1, email);
 			ResultSet resultSet = ps.executeQuery();
 			while (resultSet.next()) {
-				Review review = new Review(resultSet.getString(1), resultSet.getString(2),
-						resultSet.getString("content"), LocalDate.parse(resultSet.getString("date")));
+				Review review = new Review(
+						resultSet.getString(1), 
+						resultSet.getString(2),
+						resultSet.getString("content"), 
+						LocalDate.parse(resultSet.getString("date")));
 				reviewsFromHosts.add(review);
 			}
 			return reviewsFromHosts;
@@ -89,17 +105,25 @@ public enum UserDAO {
 	}
 
 	public ArrayList<Review> getReviewsFromGuestsByEmail(String email) throws SQLException {
-		String sql = "SELECT CONCAT(u.first_name, \" \", u.last_name) AS Reviewer, p.title, pc.content, date "
-				+ "FROM POST_COMMENTS pc " + "JOIN POSTS p " + "ON pc.post_id = p.ID " + "JOIN USERS u "
-				+ "ON pc.user_id = u.id " + "JOIN USERS h " + "ON p.host_id = h.id " + "WHERE h.email = ?;";
+		String sql = 
+				"SELECT CONCAT(u.first_name, \" \", u.last_name), p.title, pc.content, date "
+				+ "FROM POST_COMMENTS pc "
+				+ "JOIN POSTS p ON pc.post_id = p.ID "
+				+ "JOIN USERS u ON pc.user_id = u.id "
+				+ "JOIN USERS h ON p.host_id = h.id "
+				+ "WHERE h.email = ?;";
 
 		ArrayList<Review> reviewsFromGuests = new ArrayList<>();
 		try (PreparedStatement ps = connection.prepareStatement(sql)) {
 			ps.setString(1, email);
 			ResultSet resultSet = ps.executeQuery();
 			while (resultSet.next()) {
-				Review review = new Review(resultSet.getString(1), resultSet.getString("title"),
-						resultSet.getString("content"), LocalDate.parse(resultSet.getString("date")));
+				Review review = new Review(
+						resultSet.getString(1), 
+						resultSet.getString("title"),
+						resultSet.getString("content"), 
+						LocalDate.parse(resultSet.getString("date")));
+				
 				reviewsFromGuests.add(review);
 			}
 			return reviewsFromGuests;
@@ -107,8 +131,10 @@ public enum UserDAO {
 	}
 
 	public boolean editUserData(User user) throws SQLException {
-		String sql = "UPDATE USERS \n" + "SET first_name=?, last_name=?, email=?, gender=?, city=?, country=?, "
-				+ "description=?, birth_date=?, telephone_number=? " + "WHERE email = ?;";
+		String sql = "UPDATE USERS "
+				+ "SET first_name=?, last_name=?, email=?, gender=?, city=?, country=?, "
+				+ "description=?, birth_date=?, telephone_number=? "
+				+ "WHERE email = ?;";
 
 		try (PreparedStatement ps = connection.prepareStatement(sql)) {
 			ps.setString(1, user.getFirstName());
@@ -126,18 +152,27 @@ public enum UserDAO {
 	}
 
 	public User getUserByID(int ID) throws SQLException, UserDataException {
-		String sqlQuery = "SELECT " + "ID, first_name, last_name, email, password, gender, city, "
-				+ "country, photo, description, birth_date, telephone_number " + "FROM USERS " + "WHERE ID = ?";
+		String sqlQuery = "SELECT ID, first_name, last_name, email, password, gender, city, "
+				+ "country, photo, description, birth_date, telephone_number "
+				+ "FROM USERS WHERE ID = ?";
 
 		try (PreparedStatement ps = connection.prepareStatement(sqlQuery)) {
 			ps.setInt(1, ID);
 			ResultSet resultSet = ps.executeQuery();
 			resultSet.next();
 			User user = null;
-			user = new User(resultSet.getInt("ID"), resultSet.getString("first_name"), resultSet.getString("last_name"),
-					resultSet.getString("email"), resultSet.getString("password"), resultSet.getString("gender"),
-					resultSet.getString("city"), resultSet.getString("country"), resultSet.getString("photo"),
-					resultSet.getString("description"), LocalDate.parse(resultSet.getString("birth_date")),
+			user = new User(
+					resultSet.getInt("ID"), 
+					resultSet.getString("first_name"), 
+					resultSet.getString("last_name"),
+					resultSet.getString("email"), 
+					resultSet.getString("password"), 
+					resultSet.getString("gender"),
+					resultSet.getString("city"), 
+					resultSet.getString("country"), 
+					resultSet.getString("photo"),
+					resultSet.getString("description"), 
+					LocalDate.parse(resultSet.getString("birth_date")),
 					resultSet.getString("telephone_number"));
 
 			return user;
