@@ -31,6 +31,7 @@ public class Post {
 				return null;
 			}
 		}
+
 		public static Type getType(String name) {
 			return Type.valueOf(name.toUpperCase());
 		}
@@ -46,13 +47,8 @@ public class Post {
 	private List<Comment> comments;
 	private int rating; // 0->5
 
-	public Post(
-			String title, 
-			String description, 
-			int price, 
-			LocalDate dateOfPosting, 
-			Type type,
-			int hostID) throws InvalidPostDataExcepetion {
+	public Post(String title, String description, int price, LocalDate dateOfPosting, Type type, int hostID)
+			throws InvalidPostDataExcepetion {
 		this.setTitle(title);
 		this.setDescription(description);
 		this.setPrice(price);
@@ -63,14 +59,8 @@ public class Post {
 		this.rating = 0;
 	}
 
-	public Post(
-			int postID, 
-			String title, 
-			String description, 
-			int price, 
-			LocalDate dateOfPosting, 
-			Type type, 
-			int hostID) throws InvalidPostDataExcepetion {
+	public Post(int postID, String title, String description, int price, LocalDate dateOfPosting, Type type, int hostID)
+			throws InvalidPostDataExcepetion {
 		this(title, description, price, dateOfPosting, type, hostID);
 		this.postID = postID;
 	}
@@ -161,6 +151,10 @@ public class Post {
 
 	public void addComment(Comment m) {
 		this.comments.add(m);
+	}
+
+	public int getRating() {
+		return rating;
 	}
 
 	@Override

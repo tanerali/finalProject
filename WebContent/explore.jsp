@@ -40,49 +40,46 @@
 
 <style>
 .filterDiv {
-  display: none;
+	display: none;
 }
 
 .show {
-  display: block;
+	display: block;
 }
 
 /* Style the buttons */
 .btn {
-  border: none;
-  outline: none;
-  padding: 12px 16px;
-  background-color: #f1f1f1;
-  cursor: pointer;
+	border: none;
+	outline: none;
+	padding: 12px 16px;
+	background-color: #f1f1f1;
+	cursor: pointer;
 }
 
 .btn:hover {
-  background-color: #ddd;
+	background-color: #ddd;
 }
 
 .btn.active {
-  background-color: #666;
-  color: white;
+	background-color: #666;
+	color: white;
 }
 
 .dropdown-toggle {
-  background-color: #4fce18;
+	background-color: #4fce18;
 }
+
 .dropdown-toggle:hover {
-  background-color: #3b9912;
+	background-color: #3b9912;
 }
-
 </style>
-
-
-
 <body>
 
 
 	<%@ include file="WEB-INF/jsp/header.jsp"%>
 
 	<%
-	ArrayList<Post> posts = (ArrayList)request.getAttribute("posts");
+		ArrayList<Post> posts = (ArrayList) request.getAttribute("posts");
 	%>
 
 	<div class="container">
@@ -90,42 +87,54 @@
 
 		<div class="dropdown">
 			<button class="btn btn-primary dropdown-toggle" type="button"
-				data-toggle="dropdown"> Type <span class="caret"></span>
+				data-toggle="dropdown">
+				Type <span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" id="myBtnContainer">
-				  <button class="btn active" onclick="filterSelection('all')"> Show all</button><br>
-				  <button class="btn" onclick="filterSelection('HOUSE')"> House</button>
-				  <button class="btn" onclick="filterSelection('APARTMENT')"> Apartment</button>
-				  <button class="btn" onclick="filterSelection('HOTEL')"> Hotel</button>
-				  <button class="btn" onclick="filterSelection('COTTAGE')"> Cottage</button>
+				<button class="btn active" onclick="filterSelection('all')">
+					Show all</button>
+				<br>
+				<button class="btn" onclick="filterSelection('HOUSE')">
+					House</button>
+				<button class="btn" onclick="filterSelection('APARTMENT')">
+					Apartment</button>
+				<button class="btn" onclick="filterSelection('HOTEL')">
+					Hotel</button>
+				<button class="btn" onclick="filterSelection('COTTAGE')">
+					Cottage</button>
 			</ul>
 		</div>
 
 		<div class="row" id="posts">
 			<%
-			if (posts != null) {
-				for (Post post: posts) { %>
+				if (posts != null) {
+					for (Post post : posts) {
+			%>
 
-					<div class="col-md-4 filterDiv <%= post.getType()%>">
-						<div class="thumbnail">
-							<a href="" target="_blank"> 
-								<img src="getThumbnail?id=<%= post.getPostID()%>" alt="" style="width: 100%">
-								<div class="caption">
-									<p><%= post.getTitle() %></p><%=post.getType()%>
-								</div>
-								<div class="caption">
-									<p>Price: <%= post.getPrice() %></p>
-								</div>
-							</a>
+			<div class="col-md-4 filterDiv <%=post.getType()%>">
+				<div class="thumbnail">
+					<a href="post?id=<%=post.getPostID()%>" target="_blank"> <img
+						src="getThumbnail?id=<%=post.getPostID()%>" alt=""
+						style="width: 100%">
+						<div class="caption">
+							<p><%=post.getTitle()%></p><%=post.getType()%>
 						</div>
-					</div>
+						<div class="caption">
+							<p>
+								Price:
+								<%=post.getPrice()%></p>
+						</div>
+					</a>
+				</div>
+			</div>
 
-			<% }
-			}
+			<%
+				}
+				}
 			%>
 		</div>
-		
-		
+
+
 	</div>
 
 
@@ -166,57 +175,56 @@
 			}
 
 		}
-		
-		
-		
-		
+
 		filterSelection("all")
 		function filterSelection(c) {
-		  var x, i;
-		  x = document.getElementsByClassName("filterDiv");
-		  if (c == "all") c = "";
-		  for (i = 0; i < x.length; i++) {
-		    w3RemoveClass(x[i], "show");
-		    if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
-		  }
+			var x, i;
+			x = document.getElementsByClassName("filterDiv");
+			if (c == "all")
+				c = "";
+			for (i = 0; i < x.length; i++) {
+				w3RemoveClass(x[i], "show");
+				if (x[i].className.indexOf(c) > -1)
+					w3AddClass(x[i], "show");
+			}
 		}
 
 		function w3AddClass(element, name) {
-		  var i, arr1, arr2;
-		  arr1 = element.className.split(" ");
-		  arr2 = name.split(" ");
-		  for (i = 0; i < arr2.length; i++) {
-		    if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
-		  }
+			var i, arr1, arr2;
+			arr1 = element.className.split(" ");
+			arr2 = name.split(" ");
+			for (i = 0; i < arr2.length; i++) {
+				if (arr1.indexOf(arr2[i]) == -1) {
+					element.className += " " + arr2[i];
+				}
+			}
 		}
 
 		function w3RemoveClass(element, name) {
-		  var i, arr1, arr2;
-		  arr1 = element.className.split(" ");
-		  arr2 = name.split(" ");
-		  for (i = 0; i < arr2.length; i++) {
-		    while (arr1.indexOf(arr2[i]) > -1) {
-		      arr1.splice(arr1.indexOf(arr2[i]), 1);     
-		    }
-		  }
-		  element.className = arr1.join(" ");
+			var i, arr1, arr2;
+			arr1 = element.className.split(" ");
+			arr2 = name.split(" ");
+			for (i = 0; i < arr2.length; i++) {
+				while (arr1.indexOf(arr2[i]) > -1) {
+					arr1.splice(arr1.indexOf(arr2[i]), 1);
+				}
+			}
+			element.className = arr1.join(" ");
 		}
 
 		// Add active class to the current button (highlight it)
 		var btnContainer = document.getElementById("myBtnContainer");
 		var btns = btnContainer.getElementsByClassName("btn");
 		for (var i = 0; i < btns.length; i++) {
-		  btns[i].addEventListener("click", function(){
-		    var current = document.getElementsByClassName("active");
-		    for(var j=0; j < current.length; j++) {
-		    	current[j].className = current[j].className.replace(" active", "");
-		    }
-		    this.className += " active";
-		  });
+			btns[i].addEventListener("click", function() {
+				var current = document.getElementsByClassName("active");
+				for (var j = 0; j < current.length; j++) {
+					current[j].className = current[j].className.replace(
+							" active", "");
+				}
+				this.className += " active";
+			});
 		}
-		
-		
-		
 	</script>
 
 </body>

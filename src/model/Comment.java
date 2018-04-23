@@ -13,7 +13,8 @@ public class Comment {
 	private String Content;
 	private LocalDate date;
 
-	public Comment(int postID, int userID, String user, LocalDate date, String content) throws InvalidCommentIDException {
+	public Comment(int postID, int userID, String user, LocalDate date, String content)
+			throws InvalidCommentIDException {
 		this.setPostID(postID);
 		this.setUserID(userID);
 		this.setUser(user);

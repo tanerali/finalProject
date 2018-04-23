@@ -2,6 +2,7 @@ package manager;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -16,8 +17,17 @@ public enum PostManager {
 
 	// userID -> list of posts
 	private Map<Integer, List<Post>> postsByUsers;
+
 	// postID -> Post
 	private Map<Integer, Post> postsByID;
+
+	public Map<Integer, List<Post>> getPostsByUsers() {
+		return postsByUsers;
+	}
+
+	public Map<Integer, Post> getPostsByID() {
+		return postsByID;
+	}
 
 	private PostManager() {
 
@@ -55,7 +65,7 @@ public enum PostManager {
 		}
 		return posts;
 	}
-	
+
 	public List<Post> getAllPosts() throws SQLException, InvalidPostDataExcepetion {
 		return PostDAO.instance.getAllPosts();
 	}

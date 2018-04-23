@@ -62,7 +62,6 @@ public class UploadPostServlet extends HttpServlet {
 			String type = request.getParameter("type");
 			int hostID = currUser.getUserID();
 
-			// TODO ADD PHOTO
 			try {
 				Post newPost = new Post(title, description, price, LocalDate.now(), Post.Type.getType(type), hostID);
 				int postID = PostManager.instance.insertPost(newPost);
