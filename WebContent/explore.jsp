@@ -134,11 +134,7 @@
 			%>
 		</div>
 
-
 	</div>
-
-
-
 	<script>
 		var req = new XMLHttpRequest();
 		function openSearch() {
@@ -152,7 +148,12 @@
 			//true means - async requests
 			req.open("Get", "search?search="
 					+ document.getElementById("search").value, true);
-			req.onreadystatechange = proccesSearch;
+			req.onreadystatechange = function() {
+				if (req.readyState == 4 && req.status == 200) {
+					document.getElementById("body").innerHTML=req.responseText;
+				}
+			};
+
 			req.send(null);
 		}
 		function proccesSearch() {

@@ -162,11 +162,4 @@ public class Post {
 		return this.title + " " + this.description + " " + this.price + " " + this.type + " " + this.dateOfPosting;
 	}
 
-	public static void main(String[] args) throws SQLException, InvalidPostDataExcepetion {
-
-		List<Post> ps = PostManager.instance.searchPostByCity("Sofi");
-		for (Post p : ps) {
-			System.out.println(p);
-		}
-	}
 }
