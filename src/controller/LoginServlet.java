@@ -28,13 +28,14 @@ public class LoginServlet extends HttpServlet {
 			User user = userManager.login(email, password);
 			if (user != null) {
 				request.getSession().setAttribute("user", user);
+				
 				ArrayList<Review> reviewsFromHosts = userManager.getReviewsFromHosts(email);
 				ArrayList<Review> reviewsFromGuests = userManager.getReviewsFromGuests(email);
-				
 				if (reviewsFromHosts != null && !reviewsFromHosts.isEmpty()) {
 					request.getSession().setAttribute("reviewsFromHosts", reviewsFromHosts);
 					request.getSession().setAttribute("reviewsFromGuests", reviewsFromGuests);
 				}
+				
 				request.getRequestDispatcher("WEB-INF/jsp/personalProfile.jsp").forward(request, response);
 			} else {
 				request.setAttribute("wrong_password", new Object());

@@ -109,7 +109,7 @@
 			</ul>
 		</div>
 		
-		<!-- cities dropdown menu -->
+		<%-- <!-- cities dropdown menu -->
 		<div class="dropdown" style="display: inline;">
 			<button class="btn btn-primary dropdown-toggle" type="button"
 				data-toggle="dropdown">
@@ -117,7 +117,7 @@
 			</button>
 			
 			<%			
-			Map<String, TreeSet<String>> locations = (Map)request.getAttribute("locations");
+			Map<String, TreeSet<String>> locations = (Map)application.getAttribute("locations");
 			%>
 			<ul class="dropdown-menu">
 				<button class="btn active" onclick="filterSelection('all')">
@@ -128,7 +128,7 @@
 						<%= country %></button>
 				<% } %>
 			</ul>
-		</div>
+		</div> --%>
 		
 		<!-- POSTS -->
 		<div class="row" id="posts">

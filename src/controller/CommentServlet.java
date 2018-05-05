@@ -21,10 +21,12 @@ public class CommentServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String commentText = req.getParameter("comment");
+		
 		int postID = 0;
 		if (req.getParameter("postID") != null) {
 			postID = Integer.parseInt(req.getParameter("postID"));
 		}
+		
 		User user = (User) req.getSession().getAttribute("user");
 		
 		if (commentText != null && !commentText.isEmpty() && user != null) {
@@ -54,6 +56,10 @@ public class CommentServlet extends HttpServlet {
 		if (req.getParameter("postID") != null) {
 			postID = Integer.parseInt(req.getParameter("postID"));
 		}
+		
+		System.out.println(commentID);
+		System.out.println(postID);
+		
 		try {
 			if (commentManager.deleteComment(commentID)) {
 				req.getRequestDispatcher("post?id="+ postID).forward(req, resp);

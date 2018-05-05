@@ -93,7 +93,7 @@
 						<h3>Comments</h3>
 				<% for(Comment comment: comments) { %>
 					
-						<div class="agileits_three_comment_grid">
+						<div class="agileits_three_comment_grid" id="comment<%= comment.getCommentID() %>">
 							<div class="agileits_tom">
 								<a href="profile?id=<%= comment.getUserID() %>">
 									<img src="getPic?id=<%= comment.getUserID() %>" class="img-responsive"></a>
@@ -109,14 +109,17 @@
 							</div>
 							<div class="clearfix">
 							<% if(session.getAttribute("user") != null) { %>
-								<form action="comment" method="delete">
+								<%-- <form action="comment" method="delete">
 									<input type="hidden" name="commentID" value="<%= comment.getCommentID()%>">
 									<input type="hidden" name="postID" value="<%= currPost.getPostID() %>">
 									<input type="submit" value="DELETE COMMENT" 
 											style="float: right; background-color: #4CAF50; 
 											border: none; color: white; padding: 15px 32px;">
-									<!-- <button onclick="deleteComment()" >DELETE COMMENT</button> -->
-								</form>
+									
+								</form> --%>
+								<button onclick="deleteComment(<%= comment.getCommentID()%>, <%=currPost.getPostID() %>)" 
+									style="float: right; background-color: #4CAF50; border: none; 
+									color: white; padding: 15px 32px;">DELETE COMMENT</button>
 							<% } %>
 							</div>
 						</div>
@@ -145,13 +148,26 @@
 		</div>
 		
 		<script type="text/javascript">
+
 			function postComment() {
 				 
 			}
 			
-			function deleteComment() {
+			function deleteComment(commentID, postID) {
+				var req = new XMLHttpRequest();
+				req.open("Delete", "comment?commentID="+ commentID+ "&postID="+ postID);
 				
+				req.onreadystatechange = function() {
+					if (req.readyState == 4 && req.status == 200) {
+						var element = document.getElementById("comment"+ commentID);
+						element.parentNode.removeChild(element);
+					}
+				}
+				
+				req.send("commentID="+ commentID + "&postID="+ postID);
 			}
+			
+			
 		</script>
 </body>
 </html>

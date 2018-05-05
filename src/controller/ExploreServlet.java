@@ -34,7 +34,7 @@ public class ExploreServlet extends HttpServlet {
 			
 			if (posts != null) {
 				req.setAttribute("posts", posts);
-				req.setAttribute("locations", locations);
+				req.getServletContext().setAttribute("locations", locations);
 				req.getRequestDispatcher("explore.jsp").forward(req, resp);
 			}
 		} catch (SQLException e) {
